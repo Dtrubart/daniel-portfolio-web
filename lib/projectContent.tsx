@@ -2,60 +2,93 @@ import type { ReactNode } from "react";
 
 import { DemoPreview } from "@/components/projects/DemoPreview";
 import { RepositoryNote } from "@/components/projects/RepositoryNote";
+import { vanbagsErpNav, vanbagsErpSections } from "@/content/projects/vanbags-erp";
 import type { Project } from "@/data/projects";
 
-export type ProjectSectionBody =
-  | "casestudy"
-  | "architecture"
-  | "demo"
-  | "repository";
-
-export function sectionLabel(sectionId: ProjectSectionBody): string {
-  return {
-    casestudy: "Case Study",
-    architecture: "Architecture",
-    demo: "Interactive Demo",
-    repository: "Technical Evidence",
-  }[sectionId];
+export interface ProjectSectionDef {
+  id: string;
+  title: string;
+  body: ReactNode;
 }
 
-export function getSectionBody(
-  project: Project,
-  sectionId: ProjectSectionBody,
-): ReactNode {
-  switch (sectionId) {
-    case "casestudy":
-      return <CaseStudyBody project={project} />;
-    case "architecture":
-      return <ArchitectureBody />;
-    case "demo":
-      return project.demo?.enabled ? (
-        <DemoPreview project={project} />
-      ) : null;
-    case "repository":
-      return project.repository?.enabled ? (
-        <RepositoryNote project={project} />
-      ) : null;
-    default:
-      return null;
+export interface NavItem {
+  id: string;
+  label: string;
+}
+
+export function getProjectSections(project: Project): ProjectSectionDef[] {
+  if (project.slug === "vanbags-erp") {
+    return vanbagsErpSections(project);
   }
+  return lightSections(project);
 }
 
-function CaseStudyBody({ project }: { project: Project }) {
+export function getProjectNav(project: Project): NavItem[] {
+  if (project.slug === "vanbags-erp") {
+    return vanbagsErpNav();
+  }
+  return lightSections(project).map((section) => ({
+    id: section.id,
+    label: section.title,
+  }));
+}
+
+interface LightSection {
+  id: string;
+  title: string;
+  body: ReactNode;
+  enabled: boolean;
+}
+
+function lightSections(project: Project): ProjectSectionDef[] {
+  const sections: LightSection[] = [
+    {
+      id: "casestudy",
+      title: "Case Study",
+      body: <CaseStudyBody project={project} />,
+      enabled: project.caseStudy.enabled,
+    },
+    {
+      id: "architecture",
+      title: "Architecture",
+      body: <ArchitectureBody />,
+      enabled: project.architecture?.enabled ?? false,
+    },
+    {
+      id: "demo",
+      title: "Interactive Demo",
+      body: <DemoPreview project={project} />,
+      enabled: project.demo?.enabled ?? false,
+    },
+    {
+      id: "technical-evidence",
+      title: "Technical Evidence",
+      body: <RepositoryNote project={project} />,
+      enabled: project.repository?.enabled ?? false,
+    },
+  ];
+
+  return sections
+    .filter((section) => section.enabled)
+    .map((section) => ({ id: section.id, title: section.title, body: section.body }));
+}
+
+function CaseStudyBody({ project }: { project: Project }): ReactNode {
   return (
     <>
       {project.objective ? (
         <p className="text-base text-muted-foreground">{project.objective}</p>
       ) : null}
       <p className="text-sm italic text-muted-foreground">
-        The detailed case study and interactive demo for this project will be
-        implemented in a later milestone per the portfolio roadmap.
+        This page is part of the interactive project framework. The detailed
+        case study and interactive demo for this project will be implemented in
+        a later milestone per the portfolio roadmap.
       </p>
     </>
   );
 }
 
-function ArchitectureBody() {
+function ArchitectureBody(): ReactNode {
   return (
     <p className="text-sm italic text-muted-foreground">
       The system and data-architecture overview is part of the interactive

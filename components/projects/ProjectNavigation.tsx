@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from "react";
 
 export interface NavSection {
   id: string;
-  title: string;
+  label: string;
 }
 
 export function ProjectNavigation({
@@ -62,7 +62,7 @@ export function ProjectNavigation({
                     : "text-muted-foreground hover:text-foreground hover:bg-secondary",
                 )}
               >
-                {section.title}
+                {section.label}
               </a>
             </li>
           );

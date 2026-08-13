@@ -11,6 +11,7 @@ export interface Project {
   featured: boolean;
   status?: ProjectStatus;
   objective?: string;
+  caseStudyAnchor?: string;
   caseStudy: { enabled: boolean };
   architecture?: { enabled: boolean };
   demo?: { enabled: boolean; type: DemoType };
@@ -26,9 +27,10 @@ export const projects: Project[] = [
       "End-to-end ERP implementation case study covering business requirements, process redesign, system structure, implementation planning, testing, and operational adoption.",
     technologies: ["ERP", "Business Analysis", "Process Design", "Implementation"],
     featured: true,
-    status: "case-study-coming-soon",
+    status: "active",
     objective:
-      "Demonstrate capability at the level of ERP Consultant, ERP Configurator, Business Analyst, and Process Optimization, tracing business transactions through ERP configuration to accounting consequences.",
+      "Demonstrate capability at the level of an ERP Consultant and Business Analyst: model the order-to-delivery process, translate requirements into ERP configuration, and trace transactions from committed quantities through to accounting consequences.",
+    caseStudyAnchor: "overview",
     caseStudy: { enabled: true },
     architecture: { enabled: true },
     demo: { enabled: true, type: "workflow" },
@@ -44,7 +46,7 @@ export const projects: Project[] = [
     featured: true,
     status: "case-study-coming-soon",
     objective:
-      "Demonstrate enterprise application development on ERPNext/Frappe, maintenance operations, work-order management, logistics integration, fleet asset management, and business workflow design.",
+      "Demonstrate enterprise application development on ERPNext/Frappe for maintenance operations, work-order management, and logistics integration.",
     caseStudy: { enabled: true },
     architecture: { enabled: true },
     demo: { enabled: true, type: "software" },
@@ -60,7 +62,7 @@ export const projects: Project[] = [
     featured: true,
     status: "case-study-coming-soon",
     objective:
-      "Demonstrate fleet analytics, telemetry, operational intelligence, KPI design, data integration, maintenance analytics, fuel analytics, driver performance analytics, and team-performance design.",
+      "Demonstrate fleet analytics, telemetry, KPI design, and data integration across maintenance, fuel, and driver performance.",
     caseStudy: { enabled: true },
     architecture: { enabled: true },
     demo: { enabled: true, type: "dashboard" },
@@ -76,7 +78,7 @@ export const projects: Project[] = [
     featured: false,
     status: "case-study-coming-soon",
     objective:
-      "Demonstrate end-to-end analytical problem solving using real portfolio exercises across multiple analytical tools.",
+      "Demonstrate end-to-end analytical problem solving using approved portfolio exercises across multiple analytical tools.",
     caseStudy: { enabled: true },
     demo: { enabled: true, type: "analytics" },
     repository: { enabled: true },
@@ -86,12 +88,12 @@ export const projects: Project[] = [
     title: "ERPNext Logistics Demo",
     category: "Operations Systems / ERP Logistics",
     description:
-      "Lightweight ERPNext-style logistics module demonstrating warehouse operations, inventory transactions, stock visibility, and stock-ledger behavior.",
+      "Lightweight ERPNext-style logistics module demonstrating warehouse operations, stock receipts and issues, stock transfers, stock balance, and stock-ledger behavior.",
     technologies: ["ERPNext", "Frappe", "Warehouse Operations", "Stock Ledger"],
     featured: false,
     status: "case-study-coming-soon",
     objective:
-      "Demonstrate ERP transactional logic, inventory logic, warehouse operations, logistics workflows, stock visibility, and stock ledger behavior.",
+      "Demonstrate ERP transactional logistics logic including stock receipt, issue, transfer, stock balance, and stock ledger behavior.",
     caseStudy: { enabled: true },
     architecture: { enabled: true },
     demo: { enabled: true, type: "software" },

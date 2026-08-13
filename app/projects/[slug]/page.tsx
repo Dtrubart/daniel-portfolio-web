@@ -5,17 +5,10 @@ import { ProjectHeader } from "@/components/projects/ProjectHeader";
 import { ProjectNavigation } from "@/components/projects/ProjectNavigation";
 import { ProjectSection } from "@/components/projects/ProjectSection";
 import { Container } from "@/components/ui/Container";
-import { getSectionBody, sectionLabel, type ProjectSectionBody } from "@/lib/projectContent";
+import { getProjectNav, getProjectSections } from "@/lib/projectContent";
 import { projects, type Project } from "@/data/projects";
 
 export const dynamicParams = false;
-
-const sectionOrder: ProjectSectionBody[] = [
-  "casestudy",
-  "architecture",
-  "demo",
-  "repository",
-];
 
 export async function generateStaticParams() {
   return projects.map((project) => ({ slug: project.slug }));
@@ -51,21 +44,6 @@ function getProject(slug: string): Project {
   return project;
 }
 
-function isSectionEnabled(project: Project, sectionId: ProjectSectionBody) {
-  switch (sectionId) {
-    case "casestudy":
-      return project.caseStudy.enabled;
-    case "architecture":
-      return project.architecture?.enabled ?? false;
-    case "demo":
-      return project.demo?.enabled ?? false;
-    case "repository":
-      return project.repository?.enabled ?? false;
-    default:
-      return false;
-  }
-}
-
 export default async function ProjectPage({
   params,
 }: {
@@ -74,9 +52,8 @@ export default async function ProjectPage({
   const { slug } = await params;
   const project = getProject(slug);
 
-  const enabledSections = sectionOrder
-    .filter((sectionId) => isSectionEnabled(project, sectionId))
-    .map((sectionId) => ({ id: sectionId, title: sectionLabel(sectionId) }));
+  const sections = getProjectSections(project);
+  const navigation = getProjectNav(project);
 
   return (
     <section className="py-16 md:py-24">
@@ -84,16 +61,16 @@ export default async function ProjectPage({
         <ProjectHeader project={project} />
 
         <div className="mt-16 lg:grid lg:grid-cols-[16rem_1fr] lg:items-start lg:gap-12 xl:gap-16">
-          <ProjectNavigation sections={enabledSections} />
+          <ProjectNavigation sections={navigation} />
 
           <article className="space-y-16">
-            {enabledSections.map((section) => (
+            {sections.map((section) => (
               <ProjectSection
                 key={section.id}
                 id={section.id}
                 title={section.title}
               >
-                {getSectionBody(project, section.id)}
+                {section.body}
               </ProjectSection>
             ))}
           </article>

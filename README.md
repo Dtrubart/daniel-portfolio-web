@@ -55,15 +55,22 @@ components/
 ├── projects/
 │   ├── ProjectCard.tsx     # Catalogue card (links to /projects/[slug])
 │   ├── ProjectHeader.tsx   # Breadcrumb + category + title + tags
-│   ├── ProjectNavigation.tsx
-│   ├── ProjectSection.tsx
-│   ├── DemoPreview.tsx
-│   └── RepositoryNote.tsx
+│   ├── ProjectNavigation.tsx  # Sticky anchor TOC with scroll-spy
+│   ├── ProjectSection.tsx     # Reusable section wrapper
+│   ├── DemoPreview.tsx        # Typed preview (software/dashboard/workflow/analytics)
+│   ├── RepositoryNote.tsx     # Pending/private-repository notice
+│   ├── ProcessFlow.tsx        # Reusable process-flow diagram
+│   ├── UATTable.tsx           # Scenario validation table
+│   └── ConfigurationPanel.tsx # Titled configuration block
 └── ui/
     ├── Container.tsx     # Responsive max-width wrapper
     ├── SectionHeading.tsx
     ├── Button.tsx        # <button> variants
     └── ButtonLink.tsx    # <a> / Next.js Link variants
+
+content/
+└── projects/
+    └── vanbags-erp.tsx   # VanBags ERP case study (14 sections)
 
 data/
 ├── projects.ts           # Strongly-typed project catalogue (single source of truth)
@@ -78,7 +85,7 @@ docs/
 lib/
 ├── site.ts               # Site name, description, nav configuration
 ├── utils.ts              # cn() class helper
-└── projectContent.tsx    # Per-project section bodies (Case Study / Architecture / Demo / Repository)
+└── projectContent.tsx    # Project-aware section router (light scaffold + VanBags case study)
 
 public/
 └── favicon.ico
@@ -86,16 +93,16 @@ public/
 
 ## Current Status Snapshot
 
-> Status as of: 2026-08-13 · Milestones 1–3 committed; Milestone 4A complete and committed
+> Status as of: 2026-08-13 · Milestones 1–4A committed; Milestone 4B implemented and validated (uncommitted, ready for review)
 
 ### Milestones
 
 - **Milestone 1 (foundational structure)** — complete and committed (`04329e4`).
 - **Milestone 2 (homepage implementation)** — complete and committed (`c7a3680`).
 - **Milestone 3 (projects architecture)** — complete and committed (`ba6266a`).
-- **Milestone 4A (interactive project framework)** — complete and committed.
-
-- **Milestone 4B (next)** — VanBags ERP Transformation Case Study.
+- **Milestone 4A (interactive project framework)** — complete and committed (`0197e74`).
+- **Milestone 4B (VanBags ERP case study)** — implemented and validated; uncommitted, ready for manual review.
+- **Milestone 5 (next)** — VanBags ERP Workflow & Configuration Simulator.
 
 ### Deliverables status
 
@@ -120,7 +127,10 @@ public/
 | DemoPreview | M4A | Done | Typed inline previews (software/dashboard/workflow/analytics) |
 | RepositoryNote | M4A | Done | Pending link / private-repository notice |
 | Section content | M4A | Done | Lightweight per-project scaffolding (Case Study / Architecture / Interactive Demo / Technical Evidence); no invented case-study detail |
-| Card CTAs | M4A | Done | "Explore project" link for all cards; "View case study" CTA wired for published (`active`) projects (activates Milestone 4B); "Case study coming soon" placeholder removed |
+| Card CTAs | M4A | Done | "Explore project" link for all cards; "View case study" CTA for published (`active`) projects; "Case study coming soon" placeholder removed |
+| VanBags case study | M4B | Done | 14 sections in a dedicated `content/projects/vanbags-erp.tsx` module |
+| VanBags project status | M4B | Done | `active` (first published case study); other four remain `case-study-coming-soon` |
+| Reusable case-study components | M4B | Done | `ProcessFlow`, `UATTable`, `ConfigurationPanel` |
 | ESLint | M4A | Passing | `npm run lint` clean |
 | Production build | M4A | Passing | `npm run build` succeeds (static-first); 14 static routes prerendered incl. 5 project pages |
 
@@ -142,11 +152,11 @@ public/
 
 ### Interactive project framework
 
-`/projects/[slug]` renders a dedicated page per project (VanBags ERP Transformation, VanBags Maintenance System, Fleet Intelligence Platform, Data Analyst Portfolio, ERPNext Logistics Demo) — three flagship and two supporting. Sections render only when the matching model flag (`caseStudy`, `architecture`, `demo`, or `repository`) is enabled, so the table of contents and rendered sections always match the data. The page exposes a breadcrumb + project header, a sticky anchor table of contents with scroll-spy, and reusable components (`ProjectSection`, `ProjectHeader`, `ProjectNavigation`, `DemoPreview`, `RepositoryNote`). In Milestone 4A the section bodies are intentionally lightweight scaffolding; detailed case-study content and interactive demos are implemented in later milestones.
+`/projects/[slug]` renders a dedicated page per project (VanBags ERP Transformation, VanBags Maintenance System, Fleet Intelligence Platform, Data Analyst Portfolio, ERPNext Logistics Demo) — three flagship and two supporting. Sections render only when the matching model flag (`caseStudy`, `architecture`, `demo`, or `repository`) is enabled, so the table of contents and rendered sections always match the data. The page exposes a breadcrumb + project header, a sticky anchor table of contents with scroll-spy, and reusable components (`ProjectSection`, `ProjectHeader`, `ProjectNavigation`, `DemoPreview`, `RepositoryNote`). In Milestone 4A the section bodies for the four non-VanBags projects are intentionally lightweight scaffolding; no invented case-study detail is published. VanBags ERP Transformation now uses a dedicated case-study content module (`content/projects/vanbags-erp.tsx`) with 14 sections. Detailed case-study content rolls out per the roadmap; interactive demos begin in Milestone 5.
 
 ### Project catalogue
 
-`/projects` renders five projects (three flagship, two supporting) from `data/projects.ts` — VanBags ERP Transformation, VanBags Maintenance System, Fleet Intelligence Platform, Data Analyst Portfolio, and ERPNext Logistics Demo. Every card links to its `/projects/<slug>` page with an "Explore project" callout. The "View case study" CTA is wired for projects marked `active` (none in Milestone 4A; VanBags ERP publishes in Milestone 4B). Private repository links are omitted until public-project review.
+`/projects` renders five projects (three flagship, two supporting) from `data/projects.ts` — VanBags ERP Transformation, VanBags Maintenance System, Fleet Intelligence Platform, Data Analyst Portfolio, and ERPNext Logistics Demo. The homepage surfaces the three flagship projects. Every card links to its `/projects/<slug>` page; VanBags ERP Transformation is now `active` and exposes a "View case study" CTA, while the remaining four remain `case-study-coming-soon`. Private repository links are omitted until public-project review.
 
 ### Placeholder routes
 

@@ -15,6 +15,7 @@ export function ProjectCard({
   const status = project.status ?? "case-study-coming-soon";
   const isLive = status === "active";
   const href = "/projects/" + project.slug;
+  const caseStudyHref = `${href}#${project.caseStudyAnchor ?? "casestudy"}`;
 
   return (
     <li
@@ -57,7 +58,7 @@ export function ProjectCard({
         </a>
         {isLive && (
           <a
-            href={`${href}#casestudy`}
+            href={caseStudyHref}
             className="text-muted-foreground hover:text-foreground focus-visible:underline"
           >
             View case study

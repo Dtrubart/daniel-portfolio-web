@@ -207,11 +207,11 @@ driven by the single source of truth in `data/projects.ts`.
       - **Interactive Demo** — `DemoPreview` renders a type-specific preview (software, dashboard, workflow, analytics).
       - **Technical Evidence** — `RepositoryNote` defers links until public review.
 
-      In Milestone 4A these bodies are intentionally lightweight scaffolding; no invented case-study content is published. Detailed content and the interactive demos are implemented in later milestones.
+      In Milestone 4A these bodies are intentionally lightweight scaffolding; no invented case-study content is published. VanBags ERP Transformation (Milestone 4B) now provides a dedicated 14-section case study from `content/projects/vanbags-erp.tsx`, while the remaining four projects stay on this lightweight scaffold. Detailed case-study content and interactive demos are implemented in later milestones.
 
 ### Catalogue cards
 
-Catalogue cards link to `/projects/[slug]`. Published (`active`) projects additionally expose a "View case study" CTA that anchors to the Case Study section; the previous "Case study coming soon" placeholder has been removed. No project is marked `active` in Milestone 4A (detailed case studies begin in Milestone 4B).
+Catalogue cards link to `/projects/[slug]`. Published (`active`) projects additionally expose a "View case study" CTA; the previous "Case study coming soon" placeholder has been removed. VanBags ERP Transformation is now `active` (Milestone 4B); the other four projects remain `case-study-coming-soon`.
 
 ## 11. Interactive Demo Principles
 
