@@ -44,7 +44,8 @@ export const projects: Project[] = [
       "ERPNext/Frappe maintenance-management application designed around equipment records, preventive and corrective maintenance workflows, technician activities, spare parts, downtime, and service history.",
     technologies: ["ERPNext", "Frappe", "Python", "Maintenance Management"],
     featured: true,
-    status: "case-study-coming-soon",
+    status: "active",
+    caseStudyAnchor: "overview",
     objective:
       "Demonstrate enterprise application development on ERPNext/Frappe for maintenance operations, work-order management, and logistics integration.",
     caseStudy: { enabled: true },

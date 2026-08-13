@@ -284,3 +284,17 @@ Implemented scope for the route `/projects/vanbags-erp/demo`:
 - Static-first: React state only. No backend, database, authentication, or external services.
 - Data is entirely synthetic and illustrative.
 
+## 15. VanBags Maintenance System Case Study (Milestone 6A)
+
+Implemented scope for the route `/projects/vanbags-maintenance`:
+
+- Case study authored in `content/projects/vanbags-maintenance.tsx`, grouped into navigation anchors: Overview, Domain, Work Orders, Logistics, Preventive Maintenance & History, Tire Management, Architecture, and Demo & Evidence.
+- Domain model (equipment/vehicle, maintenance requests, work orders, activities, parts, downtime, service history, tire positions) documented conceptually with reusable presentational components under `components/projects/vanbags-maintenance/`.
+- Work Order structure with activity-level execution (multi-technician, per-activity status traceability).
+- Maintenance ↔ Logistics integration: parts requirements, warehouse availability, reservation, issue/consumption, and a material-availability/shortage visualization.
+- Preventive maintenance scheduling, downtime capture, and a service-history timeline.
+- Tire management: graphical vehicle axle/position layout, unique tire identity, tire detail, lifecycle states, and tire movement history.
+- Layered solution architecture, ERPNext/Frappe architecture, conceptual entity architecture, modeled business rules, and UAT scenarios. A distinction is drawn between designed module rules and Frappe-native framework behavior.
+- Demo remains preview-only (Milestone 6B); no `/projects/vanbags-maintenance/demo` route is created.
+- Static-first, synthetic data, no backend/database.
+

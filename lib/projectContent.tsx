@@ -3,6 +3,10 @@ import type { ReactNode } from "react";
 import { DemoPreview } from "@/components/projects/DemoPreview";
 import { RepositoryNote } from "@/components/projects/RepositoryNote";
 import { vanbagsErpNav, vanbagsErpSections } from "@/content/projects/vanbags-erp";
+import {
+  vanbagsMaintenanceNav,
+  vanbagsMaintenanceSections,
+} from "@/content/projects/vanbags-maintenance";
 import type { Project } from "@/data/projects";
 
 export interface ProjectSectionDef {
@@ -20,12 +24,18 @@ export function getProjectSections(project: Project): ProjectSectionDef[] {
   if (project.slug === "vanbags-erp") {
     return vanbagsErpSections(project);
   }
+  if (project.slug === "vanbags-maintenance") {
+    return vanbagsMaintenanceSections(project);
+  }
   return lightSections(project);
 }
 
 export function getProjectNav(project: Project): NavItem[] {
   if (project.slug === "vanbags-erp") {
     return vanbagsErpNav();
+  }
+  if (project.slug === "vanbags-maintenance") {
+    return vanbagsMaintenanceNav();
   }
   return lightSections(project).map((section) => ({
     id: section.id,

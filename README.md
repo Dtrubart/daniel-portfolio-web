@@ -93,7 +93,7 @@ public/
 
 ## Current Status Snapshot
 
-> Status as of: 2026-08-13 · Milestones 1–4B committed; Milestone 5 implemented and validated (uncommitted, ready for review)
+> Status as of: 2026-08-13 · Milestones 1–5 committed; Milestone 6A implemented and validated (uncommitted, ready for review)
 
 ### Milestones
 
@@ -102,7 +102,8 @@ public/
 - **Milestone 3 (projects architecture)** — complete and committed (`ba6266a`).
 - **Milestone 4A (interactive project framework)** — complete and committed (`0197e74`).
 - **Milestone 4B (VanBags ERP case study)** — complete and committed (`b73c004`).
-- **Milestone 5 (in progress)** — VanBags ERP Workflow & Configuration Simulator; implemented and validated, uncommitted, ready for manual review.
+- **Milestone 5 (VanBags ERP simulator)** — complete and committed (`3d4dfe6`).
+- **Milestone 6A (VanBags Maintenance case study)** — implemented and validated, uncommitted, ready for manual review.
 
 ### Deliverables status
 
@@ -130,7 +131,9 @@ public/
 | Card CTAs | M4A | Done | "Explore project" link for all cards; "View case study" CTA for published (`active`) projects; "Case study coming soon" placeholder removed |
 | VanBags case study | M4B | Done | 14 sections in a dedicated `content/projects/vanbags-erp.tsx` module |
 | VanBags ERP interactive demo | M5 | Done | Business Process simulator and ERP Configuration explorer; static-first, synthetic data, no backend/database |
-| VanBags project status | M4B | Done | `active` (first published case study); other four remain `case-study-coming-soon` |
+| VanBags Maintenance case study | M6A | Done | Production-quality case study in `content/projects/vanbags-maintenance.tsx`; domain, work orders, activity execution, logistics, PM, downtime, tire management, architecture, UAT |
+| VanBags Maintenance demo | 6B | Planned | Functional Maintenance + Tire Management demo; M6A exposes a preview-only panel only, no `/projects/vanbags-maintenance/demo` route |
+| VanBags Maintenance project status | M6A | Done | `active` (second published case study); remaining three remain `case-study-coming-soon` |
 | Reusable case-study components | M4B | Done | `ProcessFlow`, `UATTable`, `ConfigurationPanel` |
 | ESLint | M4A | Passing | `npm run lint` clean |
 | Production build | M4A | Passing | `npm run build` succeeds (static-first); 14 static routes prerendered incl. 5 project pages |
@@ -154,11 +157,11 @@ public/
 
 ### Interactive project framework
 
-`/projects/[slug]` renders a dedicated page per project (VanBags ERP Transformation, VanBags Maintenance System, Fleet Intelligence Platform, Data Analyst Portfolio, ERPNext Logistics Demo) — three flagship and two supporting. Sections render only when the matching model flag (`caseStudy`, `architecture`, `demo`, or `repository`) is enabled, so the table of contents and rendered sections always match the data. The page exposes a breadcrumb + project header, a sticky anchor table of contents with scroll-spy, and reusable components (`ProjectSection`, `ProjectHeader`, `ProjectNavigation`, `DemoPreview`, `RepositoryNote`). In Milestone 4A the section bodies for the four non-VanBags projects are intentionally lightweight scaffolding; no invented case-study detail is published. VanBags ERP Transformation now uses a dedicated case-study content module (`content/projects/vanbags-erp.tsx`) with 14 sections. Detailed case-study content rolls out per the roadmap; the VanBags ERP Transformation interactive demo (Milestone 5) is implemented and available, and is a Business Process scenario simulator and ERP Configuration explorer using synthetic data with no backend or database.
+`/projects/[slug]` renders a dedicated page per project (VanBags ERP Transformation, VanBags Maintenance System, Fleet Intelligence Platform, Data Analyst Portfolio, ERPNext Logistics Demo) — three flagship and two supporting. Sections render only when the matching model flag (`caseStudy`, `architecture`, `demo`, or `repository`) is enabled, so the table of contents and rendered sections always match the data. The page exposes a breadcrumb + project header, a sticky anchor table of contents with scroll-spy, and reusable components (`ProjectSection`, `ProjectHeader`, `ProjectNavigation`, `DemoPreview`, `RepositoryNote`). In Milestone 4A the section bodies for the four non-VanBags projects are intentionally lightweight scaffolding; no invented case-study detail is published. VanBags ERP Transformation now uses a dedicated case-study content module (`content/projects/vanbags-erp.tsx`) with 14 sections. Detailed case-study content rolls out per the roadmap; the VanBags ERP Transformation interactive demo (Milestone 5) is implemented and available, and is a Business Process scenario simulator and ERP Configuration explorer using synthetic data with no backend or database. VanBags Maintenance System is now the second active case study (Milestone 6A, case study only); its interactive Maintenance and Tire Management demo is planned for Milestone 6B.
 
 ### Project catalogue
 
-`/projects` renders five projects (three flagship, two supporting) from `data/projects.ts` — VanBags ERP Transformation, VanBags Maintenance System, Fleet Intelligence Platform, Data Analyst Portfolio, and ERPNext Logistics Demo. The homepage surfaces the three flagship projects. Every card links to its `/projects/<slug>` page; VanBags ERP Transformation is now `active` and exposes a "View case study" CTA, while the remaining four remain `case-study-coming-soon`. Private repository links are omitted until public-project review.
+`/projects` renders five projects (three flagship, two supporting) from `data/projects.ts` — VanBags ERP Transformation, VanBags Maintenance System, Fleet Intelligence Platform, Data Analyst Portfolio, and ERPNext Logistics Demo. The homepage surfaces the three flagship projects. Every card links to its `/projects/<slug>` page; VanBags ERP Transformation (`active`, Milestone 4B) and VanBags Maintenance System (`active`, Milestone 6A) are now published, each exposing a "View case study" CTA; Fleet Intelligence, Data Analyst Portfolio, and ERPNext Logistics Demo remain `case-study-coming-soon`. Private repository links are omitted until public-project review.
 
 ### Placeholder routes
 
