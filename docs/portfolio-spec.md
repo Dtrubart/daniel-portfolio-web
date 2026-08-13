@@ -274,3 +274,13 @@ Avoid unnecessary functional duplication between projects.
 - **Milestone 13** — GitHub / Technical Evidence Integration
 - **Milestone 14** — SEO / Metadata / Structured Discoverability
 - **Milestone 15** — Production Deployment
+
+## 14. VanBags ERP Interactive Simulation (Milestone 5)
+
+Implemented scope for the route `/projects/vanbags-erp/demo`:
+
+- **Business Process** mode: six predefined scenarios (Standard Order, PO Modification, Split Shipment, Partial Shipment, Packaging Delay, Consolidated Container) with a derived order-to-delivery workflow, KPI quantities, and simulated traceability.
+- **ERP Configuration** mode: six explorable views (Company Setup, Chart of Accounts, Accounting Mappings, Cost Centers, Warehouses, Item Groups) plus an accounting consequence preview.
+- Static-first: React state only. No backend, database, authentication, or external services.
+- Data is entirely synthetic and illustrative.
+

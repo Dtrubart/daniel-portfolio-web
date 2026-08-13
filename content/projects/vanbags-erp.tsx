@@ -5,6 +5,7 @@ import { UATTable, type UatScenario } from "@/components/projects/UATTable";
 import { ConfigurationPanel } from "@/components/projects/ConfigurationPanel";
 import { DemoPreview } from "@/components/projects/DemoPreview";
 import { RepositoryNote } from "@/components/projects/RepositoryNote";
+import { ButtonLink } from "@/components/ui/ButtonLink";
 import type { NavItem, ProjectSectionDef } from "@/lib/projectContent";
 import type { Project } from "@/data/projects";
 
@@ -151,8 +152,8 @@ function Overview(project: Project): ReactNode {
       </p>
       <p className="text-sm italic text-muted-foreground">
         This case study documents the analysis, design, and configuration
-        approach. The interactive ERP experience (Milestone 5) is not part of
-        this milestone.
+        approach. The interactive ERP simulation is available via the Demo
+        section below.
       </p>
     </>
   );
@@ -639,7 +640,7 @@ function DemoPreviewSection(project: Project): ReactNode {
       <div className="mt-6 space-y-4">
         <div>
           <h4 className="text-sm font-semibold text-foreground">
-            Future Business Process mode
+            Business Process mode
           </h4>
           <ul className="list-disc list-outside ml-5 space-y-1 text-sm text-muted-foreground">
             <li>Standard Order</li>
@@ -652,7 +653,7 @@ function DemoPreviewSection(project: Project): ReactNode {
         </div>
         <div>
           <h4 className="text-sm font-semibold text-foreground">
-            Future ERP Configuration mode
+            ERP Configuration mode
           </h4>
           <ul className="list-disc list-outside ml-5 space-y-1 text-sm text-muted-foreground">
             <li>Chart of Accounts</li>
@@ -663,23 +664,12 @@ function DemoPreviewSection(project: Project): ReactNode {
             <li>Company / Fiscal Setup</li>
           </ul>
         </div>
-        <div className="flex items-center gap-3">
-          <button
-            type="button"
-            disabled
-            className="rounded-md border border-border bg-secondary px-3 py-2 text-sm font-medium text-muted-foreground"
-          >
-            Launch Business Process
-          </button>
-          <button
-            type="button"
-            disabled
-            className="rounded-md border border-border bg-secondary px-3 py-2 text-sm font-medium text-muted-foreground"
-          >
-            Launch ERP Configuration
-          </button>
+        <div className="flex flex-col gap-2 pt-2 sm:flex-row sm:items-center">
+          <ButtonLink href="/projects/vanbags-erp/demo" variant="primary">
+            Launch Interactive Demo
+          </ButtonLink>
           <span className="text-xs text-muted-foreground">
-            (available in Milestone 5)
+            Interactive ERP consulting simulation with synthetic data.
           </span>
         </div>
       </div>
