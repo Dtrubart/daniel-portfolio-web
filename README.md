@@ -30,33 +30,58 @@ The production build is entirely static (no client-side data fetching, no databa
 app/
 ├── layout.tsx            # Root layout, metadata, skip-link, Navbar, Footer
 ├── globals.css
-├── page.tsx              # Homepage (minimal)
-├── projects/page.tsx
+├── page.tsx              # Homepage composition
+├── projects/page.tsx     # Project catalogue
 ├── experience/page.tsx
 ├── about/page.tsx
 ├── resume/page.tsx
 └── contact/page.tsx
 
 components/
+├── home/
+│   ├── Hero.tsx
+│   ├── FeaturedProjects.tsx
+│   ├── Capabilities.tsx
+│   ├── SelectedExperience.tsx
+│   ├── Certifications.tsx
+│   ├── CurrentWork.tsx
+│   └── ContactCTA.tsx
 ├── layout/
 │   ├── Navbar.tsx        # Client Component (mobile menu toggle)
 │   └── Footer.tsx
+├── projects/
+│   └── ProjectCard.tsx
 └── ui/
     ├── Container.tsx     # Responsive max-width wrapper
     ├── SectionHeading.tsx
     ├── Button.tsx        # <button> variants
     └── ButtonLink.tsx    # <a> / Next.js Link variants
 
+data/
+├── projects.ts           # Strongly-typed project catalogue
+├── capabilities.ts
+├── experience.ts
+├── certifications.ts
+└── current-work.ts
+
+docs/
+└── portfolio-spec.md     # Product specification
+
 lib/
 ├── site.ts               # Site name, description, nav configuration
 └── utils.ts              # cn() class helper
+
+public/
+└── favicon.ico
 ```
 
 ## Current Status Snapshot
 
-> Status as of: 2026-08-12
+> Status as of: 2026-08-13
 
-**Milestone 1 (foundational structure) — implemented and validated.**
+**Milestone 1 (foundational structure)** — committed (`04329e4`).
+
+**Milestone 2 (homepage implementation)** — ready for commit.
 
 | Area | Status | Notes |
 | --- | --- | --- |
@@ -69,15 +94,17 @@ lib/
 | Global styles | Done | Professional color system, OS light/dark, focus states |
 | Metadata foundation | Done | Title template, description, Open Graph, robots, `metadataBase` |
 | Routes | Done | `/`, `/projects`, `/experience`, `/about`, `/resume`, `/contact` |
-| Placeholder pages | Done | Per-page metadata + minimal non-factual placeholder text |
-| Responsiveness | Done | Mobile → desktop |
-| Accessibility | Done | Semantic landmarks, heading hierarchy, focus-visible |
+| Homepage | Done | Hero, Featured Projects, Capabilities, Experience, Certifications, Current Work, Contact CTA |
 | ESLint | Passing | `npm run lint` clean |
-| Production build | Passing | `npm run build` — 9 static routes prerendered |
+| Production build | Passing | `npm run build` - 9 static routes prerendered |
 
 ### Placeholder routes
 
-The `/projects`, `/experience`, `/about`, `/resume`, and `/contact` routes are functional placeholders with minimal, non-factual content. Project details, experience history, resume links, and contact information will be supplied in a later milestone.
+The `/experience`, `/about`, `/resume`, and `/contact` routes remain functional placeholders with minimal, non-factual content. Project details, experience history, resume links, and contact information will be supplied in a later milestone. (The `/projects` route is now a catalogue - see below.)
+
+### Project catalogue
+
+`/projects` renders a professional catalogue of five projects from a single strongly-typed source (`data/projects.ts`): three flagship projects and two supporting projects. Each project card carries a non-interactive "Case study coming soon" state until case-study pages exist.
 
 ### Configuration
 
@@ -90,5 +117,14 @@ The `/projects`, `/experience`, `/about`, `/resume`, and `/contact` routes are f
 
 ## Milestones
 
-- **Milestone 1 (foundational structure)** — complete. Global layout, responsive Navbar/Footer, reusable UI primitives, metadata foundation, and placeholder routes are implemented, lint-clean, and passing the production build.
-- **Milestone 2 (homepage implementation)** — next up.
+- **Milestone 1 (foundational structure)** - complete and committed (`04329e4`).
+- **Milestone 2 (homepage implementation)** - implemented; ESLint passing; production build passing; ready for commit.
+- **Milestone 3 (projects architecture)** - next.
+
+## Live Preview
+
+```bash
+npm run dev
+```
+
+Open http://localhost:3000
