@@ -1,5 +1,7 @@
 export type ProjectStatus = "active" | "case-study-coming-soon";
 
+export type DemoType = "software" | "dashboard" | "workflow" | "analytics";
+
 export interface Project {
   slug: string;
   title: string;
@@ -8,6 +10,11 @@ export interface Project {
   technologies: string[];
   featured: boolean;
   status?: ProjectStatus;
+  objective?: string;
+  caseStudy: { enabled: boolean };
+  architecture?: { enabled: boolean };
+  demo?: { enabled: boolean; type: DemoType };
+  repository?: { enabled: boolean; url?: string };
 }
 
 export const projects: Project[] = [
@@ -20,6 +27,12 @@ export const projects: Project[] = [
     technologies: ["ERP", "Business Analysis", "Process Design", "Implementation"],
     featured: true,
     status: "case-study-coming-soon",
+    objective:
+      "Demonstrate capability at the level of ERP Consultant, ERP Configurator, Business Analyst, and Process Optimization, tracing business transactions through ERP configuration to accounting consequences.",
+    caseStudy: { enabled: true },
+    architecture: { enabled: true },
+    demo: { enabled: true, type: "workflow" },
+    repository: { enabled: true },
   },
   {
     slug: "vanbags-maintenance",
@@ -30,6 +43,12 @@ export const projects: Project[] = [
     technologies: ["ERPNext", "Frappe", "Python", "Maintenance Management"],
     featured: true,
     status: "case-study-coming-soon",
+    objective:
+      "Demonstrate enterprise application development on ERPNext/Frappe, maintenance operations, work-order management, logistics integration, fleet asset management, and business workflow design.",
+    caseStudy: { enabled: true },
+    architecture: { enabled: true },
+    demo: { enabled: true, type: "software" },
+    repository: { enabled: true },
   },
   {
     slug: "fleet-intelligence",
@@ -40,25 +59,42 @@ export const projects: Project[] = [
     technologies: ["Power BI", "Telemetry", "ERP", "Operations Analytics"],
     featured: true,
     status: "case-study-coming-soon",
+    objective:
+      "Demonstrate fleet analytics, telemetry, operational intelligence, KPI design, data integration, maintenance analytics, fuel analytics, driver performance analytics, and team-performance design.",
+    caseStudy: { enabled: true },
+    architecture: { enabled: true },
+    demo: { enabled: true, type: "dashboard" },
+    repository: { enabled: true },
   },
   {
     slug: "data-analytics-portfolio",
-    title: "Data Analytics Portfolio",
+    title: "Data Analyst Portfolio",
     category: "Data Analytics",
     description:
       "Collection of practical analytics projects demonstrating SQL, Python, data processing, business intelligence, and business-oriented analysis workflows.",
-    technologies: ["SQL", "Python", "Data Processing", "Business Intelligence"],
+    technologies: ["SQL", "Python", "Excel", "Power Query"],
     featured: false,
     status: "case-study-coming-soon",
+    objective:
+      "Demonstrate end-to-end analytical problem solving using real portfolio exercises across multiple analytical tools.",
+    caseStudy: { enabled: true },
+    demo: { enabled: true, type: "analytics" },
+    repository: { enabled: true },
   },
   {
     slug: "inventory-management-system",
-    title: "Inventory Management System Lite",
-    category: "Operations Systems",
+    title: "ERPNext Logistics Demo",
+    category: "Operations Systems / ERP Logistics",
     description:
-      "Lightweight inventory-management application exploring inventory records, operational transactions, validation logic, and core business-system workflows.",
-    technologies: ["Python", "Inventory Management", "Operations", "Business Logic"],
+      "Lightweight ERPNext-style logistics module demonstrating warehouse operations, inventory transactions, stock visibility, and stock-ledger behavior.",
+    technologies: ["ERPNext", "Frappe", "Warehouse Operations", "Stock Ledger"],
     featured: false,
     status: "case-study-coming-soon",
+    objective:
+      "Demonstrate ERP transactional logic, inventory logic, warehouse operations, logistics workflows, stock visibility, and stock ledger behavior.",
+    caseStudy: { enabled: true },
+    architecture: { enabled: true },
+    demo: { enabled: true, type: "software" },
+    repository: { enabled: true },
   },
 ];

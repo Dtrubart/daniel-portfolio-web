@@ -7,11 +7,6 @@ interface ProjectCardProps extends HTMLAttributes<HTMLLIElement> {
   project: Project;
 }
 
-const statusLabel: Record<NonNullable<Project["status"]>, string> = {
-  active: "View project",
-  "case-study-coming-soon": "Case study coming soon",
-};
-
 export function ProjectCard({
   project,
   className,
@@ -53,18 +48,20 @@ export function ProjectCard({
         ))}
       </ul>
 
-      <div className="mt-5 text-sm font-medium">
-        {isLive ? (
+      <div className="mt-5 flex items-center justify-between gap-3 text-sm font-medium">
+        <a
+          href={href}
+          className="text-accent hover:text-accent-hover focus-visible:underline"
+        >
+          Explore project
+        </a>
+        {isLive && (
           <a
-            href={href}
-            className="text-accent hover:text-accent-hover focus-visible:underline"
+            href={`${href}#casestudy`}
+            className="text-muted-foreground hover:text-foreground focus-visible:underline"
           >
-            {statusLabel.active}
+            View case study
           </a>
-        ) : (
-          <span className="text-muted-foreground">
-            {statusLabel["case-study-coming-soon"]}
-          </span>
         )}
       </div>
     </li>

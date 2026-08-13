@@ -183,3 +183,94 @@ V1 is complete when:
 - Open Graph metadata exists
 - Production build passes
 - Website is deployed to Vercel
+
+## 10. Interactive Project Pages
+
+Each project gets a dedicated, statically-generated page at `/projects/[slug]`
+driven by the single source of truth in `data/projects.ts`.
+
+### Route generation
+
+- `generateStaticParams` returns all project slugs, so every project is prerendered.
+- `dynamicParams = false` ensures only defined slugs resolve; undefined slugs return a 404.
+- `notFound()` provides a defensive guard for any slug missing from the catalogue.
+- `generateMetadata` produces per-project `<title>`, description, and Open Graph metadata.
+
+### Page structure
+
+1. `ProjectHeader` — breadcrumb, category, title, description, technology tags.
+2. `ProjectNavigation` — sticky anchor table of contents (Client Component) with scroll-spy; lists only enabled sections.
+3. `ProjectSection` — reusable section wrapper exposing an `id` anchor.
+   4. Four section types, each rendered only when the project model enables it:
+      - **Case Study** — the project's professional objective plus a note that the detailed case study is planned.
+      - **Architecture** — system and data-architecture overview (scaffolded).
+      - **Interactive Demo** — `DemoPreview` renders a type-specific preview (software, dashboard, workflow, analytics).
+      - **Technical Evidence** — `RepositoryNote` defers links until public review.
+
+      In Milestone 4A these bodies are intentionally lightweight scaffolding; no invented case-study content is published. Detailed content and the interactive demos are implemented in later milestones.
+
+### Catalogue cards
+
+Catalogue cards link to `/projects/[slug]`. Published (`active`) projects additionally expose a "View case study" CTA that anchors to the Case Study section; the previous "Case study coming soon" placeholder has been removed. No project is marked `active` in Milestone 4A (detailed case studies begin in Milestone 4B).
+
+## 11. Interactive Demo Principles
+
+### Static-first
+
+The portfolio remains static-first. Interactive demos may use Client Components where required. Do not convert whole project pages into Client Components unless necessary.
+
+### Synthetic / approved data
+
+Demos must use synthetic data or explicitly approved portfolio data. Never expose employer confidential information, production data, credentials, secrets, private customer data, proprietary datasets, or private repositories.
+
+### Demo isolation
+
+Future interactive components should conceptually live under `components/demos/`. Project-specific demo data should conceptually live under `data/demos/`. Do not create empty directories merely for documentation purposes; create them only when implementation requires them.
+
+### Golden path
+
+Functional demos should reproduce important business workflows rather than entire enterprise applications. A demo should answer: "What is the minimum interactive experience required to demonstrate the underlying system design and business logic?"
+
+### State
+
+Future demos may use React state and `localStorage` where justified. No database is required for V1.
+
+### Reset
+
+Stateful functional demos should eventually support "Reset Demo" where appropriate.
+
+### Demo types
+
+Supported demo types remain: `workflow`, `software`, `dashboard`, `analytics`.
+
+## 12. Project Differentiation
+
+The five projects must not feel like the same project repeated. Each has a different professional purpose:
+
+- **VanBags ERP Transformation** — design and configure the enterprise system.
+- **VanBags Maintenance System** — build an enterprise maintenance module.
+- **Fleet Intelligence Platform** — analyze and optimize fleet operations.
+- **Data Analyst Portfolio** — demonstrate multi-tool analytical problem solving.
+- **ERPNext Logistics Demo** — demonstrate ERP transactional logistics logic.
+
+Avoid unnecessary functional duplication between projects.
+
+## 13. Master Implementation Roadmap
+
+- **Milestone 4A** — Interactive Project Framework
+- **Milestone 4B** — VanBags ERP Transformation Case Study
+- **Milestone 5** — VanBags ERP Workflow & Configuration Simulator
+- **Milestone 6A** — VanBags Maintenance Case Study
+- **Milestone 6B** — VanBags Maintenance Functional Demo (work orders, logistics integration, graphical tire module)
+- **Milestone 7A** — Fleet Intelligence Case Study
+- **Milestone 7B** — Fleet Intelligence Interactive Dashboard (telemetry, fuel, RPM, theft alerts, flexible maintenance, routes, driver ranking, team ranking, radar chart)
+- **Milestone 8A** — Data Analyst Portfolio Case Study
+- **Milestone 8B** — Data Analyst Interactive Lab (Org Chart Overhaul, Flatten the Stack)
+- **Milestone 9A** — ERPNext Logistics Case Study
+- **Milestone 9B** — ERPNext Logistics Functional Demo (Items, Warehouses, Material Receipt, Material Issue, Material Transfer, Stock Balance, Stock Ledger)
+- **Milestone 10** — Shared Demo Components
+- **Milestone 11** — Cross-Project Visual and Responsive Polish
+- **Milestone 12** — Experience / About / Resume / Contact
+- **Milestone 13** — GitHub / Technical Evidence Integration
+- **Milestone 14** — SEO / Metadata / Structured Discoverability
+- **Milestone 15** — Production Deployment
