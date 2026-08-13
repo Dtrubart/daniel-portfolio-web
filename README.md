@@ -58,7 +58,7 @@ components/
     └── ButtonLink.tsx    # <a> / Next.js Link variants
 
 data/
-├── projects.ts           # Strongly-typed project catalogue
+├── projects.ts           # Strongly-typed project catalogue (single source of truth)
 ├── capabilities.ts
 ├── experience.ts
 ├── certifications.ts
@@ -81,7 +81,9 @@ public/
 
 **Milestone 1 (foundational structure)** — committed (`04329e4`).
 
-**Milestone 2 (homepage implementation)** — ready for commit.
+**Milestone 2 (homepage implementation)** — complete and committed (`c7a3680`).
+
+**Milestone 3 (projects architecture)** — in progress.
 
 | Area | Status | Notes |
 | --- | --- | --- |
@@ -95,12 +97,13 @@ public/
 | Metadata foundation | Done | Title template, description, Open Graph, robots, `metadataBase` |
 | Routes | Done | `/`, `/projects`, `/experience`, `/about`, `/resume`, `/contact` |
 | Homepage | Done | Hero, Featured Projects, Capabilities, Experience, Certifications, Current Work, Contact CTA |
+| Project catalogue | In progress | `/projects` implemented; 5 projects (3 featured, 2 supporting); not yet committed |
 | ESLint | Passing | `npm run lint` clean |
 | Production build | Passing | `npm run build` - 9 static routes prerendered |
 
 ### Placeholder routes
 
-The `/experience`, `/about`, `/resume`, and `/contact` routes remain functional placeholders with minimal, non-factual content. Project details, experience history, resume links, and contact information will be supplied in a later milestone. (The `/projects` route is now a catalogue - see below.)
+The `/experience`, `/about`, `/resume`, and `/contact` routes remain functional placeholders with minimal, non-factual content. Project details, experience history, resume links, and contact information will be supplied in a later milestone.
 
 ### Project catalogue
 
@@ -117,9 +120,9 @@ The `/experience`, `/about`, `/resume`, and `/contact` routes remain functional 
 
 ## Milestones
 
-- **Milestone 1 (foundational structure)** - complete and committed (`04329e4`).
-- **Milestone 2 (homepage implementation)** - implemented; ESLint passing; production build passing; ready for commit.
-- **Milestone 3 (projects architecture)** - next.
+- **Milestone 1 (foundational structure)** — complete and committed (`04329e4`).
+- **Milestone 2 (homepage implementation)** — complete and committed (`c7a3680`).
+- **Milestone 3 (projects architecture)** — in progress; `/projects` implemented and validated; not yet committed.
 
 ## Live Preview
 

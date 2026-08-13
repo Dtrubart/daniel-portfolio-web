@@ -1,23 +1,31 @@
-import Link from "next/link";
 import type { HTMLAttributes } from "react";
 
 import type { Project } from "@/data/projects";
 import { cn } from "@/lib/utils";
 
-export interface ProjectCardProps
-  extends HTMLAttributes<HTMLLIElement> {
+interface ProjectCardProps extends HTMLAttributes<HTMLLIElement> {
   project: Project;
 }
+
+const statusLabel: Record<NonNullable<Project["status"]>, string> = {
+  active: "View project",
+  "case-study-coming-soon": "Case study coming soon",
+};
 
 export function ProjectCard({
   project,
   className,
   ...props
 }: ProjectCardProps) {
+  const status = project.status ?? "case-study-coming-soon";
+  const isLive = status === "active";
+  const href = "/projects/" + project.slug;
+
   return (
     <li
       className={cn(
-        "group flex flex-col rounded-lg border border-border bg-popover p-6 shadow-xs transition-colors hover:bg-secondary",
+        "group flex flex-col rounded-lg border border-border bg-popover p-6 transition-colors hover:bg-secondary",
+        !project.featured && "border-dashed opacity-90",
         className,
       )}
       {...props}
@@ -35,22 +43,30 @@ export function ProjectCard({
       </p>
 
       <ul className="mt-4 flex flex-wrap gap-1.5">
-        {project.focus.map((item) => (
+        {project.technologies.map((tech) => (
           <li
-            key={item}
+            key={tech}
             className="rounded-md bg-secondary px-2.5 py-1 text-xs text-muted-foreground"
           >
-            {item}
+            {tech}
           </li>
         ))}
       </ul>
 
-      <Link
-        href={project.href}
-        className="mt-5 text-sm font-medium text-accent hover:text-accent-hover focus-visible:underline"
-      >
-        View project
-      </Link>
+      <div className="mt-5 text-sm font-medium">
+        {isLive ? (
+          <a
+            href={href}
+            className="text-accent hover:text-accent-hover focus-visible:underline"
+          >
+            {statusLabel.active}
+          </a>
+        ) : (
+          <span className="text-muted-foreground">
+            {statusLabel["case-study-coming-soon"]}
+          </span>
+        )}
+      </div>
     </li>
   );
 }

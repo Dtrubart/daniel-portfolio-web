@@ -5,6 +5,8 @@ import { SectionHeading } from "@/components/ui/SectionHeading";
 import { projects } from "@/data/projects";
 
 export function FeaturedProjects() {
+  const featured = projects.filter((project) => project.featured);
+
   return (
     <section className="py-16 md:py-24">
       <Container>
@@ -16,7 +18,7 @@ export function FeaturedProjects() {
         />
 
         <ul className="mx-auto mt-12 grid max-w-7xl gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {projects.map((project) => (
+          {featured.map((project) => (
             <ProjectCard key={project.slug} project={project} />
           ))}
         </ul>
