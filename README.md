@@ -69,8 +69,9 @@ components/
     └── ButtonLink.tsx    # <a> / Next.js Link variants
 
 content/
-└── projects/
-    └── vanbags-erp.tsx   # VanBags ERP case study (14 sections)
+    └── projects/
+        ├── vanbags-erp.tsx            # VanBags ERP case study (14 sections)
+        └── vanbags-maintenance.tsx    # VanBags Maintenance case study
 
 data/
 ├── projects.ts           # Strongly-typed project catalogue (single source of truth)
@@ -93,7 +94,7 @@ public/
 
 ## Current Status Snapshot
 
-> Status as of: 2026-08-13 · Milestones 1–5 committed; Milestone 6A implemented and validated (uncommitted, ready for review)
+> Status as of: 2026-08-14 · Milestones 1–5 committed; Milestones 6A & 6B implemented and validated (uncommitted, ready for review)
 
 ### Milestones
 
@@ -104,6 +105,7 @@ public/
 - **Milestone 4B (VanBags ERP case study)** — complete and committed (`b73c004`).
 - **Milestone 5 (VanBags ERP simulator)** — complete and committed (`3d4dfe6`).
 - **Milestone 6A (VanBags Maintenance case study)** — implemented and validated, uncommitted, ready for manual review.
+- **Milestone 6B (VanBags Maintenance interactive demo)** — implemented and validated, uncommitted, ready for review. Functional Maintenance + Tire Management simulation at `/projects/vanbags-maintenance/demo`.
 
 ### Deliverables status
 
@@ -132,11 +134,11 @@ public/
 | VanBags case study | M4B | Done | 14 sections in a dedicated `content/projects/vanbags-erp.tsx` module |
 | VanBags ERP interactive demo | M5 | Done | Business Process simulator and ERP Configuration explorer; static-first, synthetic data, no backend/database |
 | VanBags Maintenance case study | M6A | Done | Production-quality case study in `content/projects/vanbags-maintenance.tsx`; domain, work orders, activity execution, logistics, PM, downtime, tire management, architecture, UAT |
-| VanBags Maintenance demo | 6B | Planned | Functional Maintenance + Tire Management demo; M6A exposes a preview-only panel only, no `/projects/vanbags-maintenance/demo` route |
+| VanBags Maintenance demo | 6B | Done | Functional Maintenance + Tire Management simulation at `/projects/vanbags-maintenance/demo`; shared demo route supports both ERP and Maintenance |
 | VanBags Maintenance project status | M6A | Done | `active` (second published case study); remaining three remain `case-study-coming-soon` |
 | Reusable case-study components | M4B | Done | `ProcessFlow`, `UATTable`, `ConfigurationPanel` |
 | ESLint | M4A | Passing | `npm run lint` clean |
-| Production build | M4A | Passing | `npm run build` succeeds (static-first); 14 static routes prerendered incl. 5 project pages |
+| Production build | M4A | Passing | `npm run build` succeeds (static-first); 16 static routes prerendered incl. 5 project pages |
 
 ### Routes
 
@@ -147,6 +149,7 @@ public/
 | `/projects/vanbags-erp` | Done | `app/projects/[slug]/page.tsx` |
 | `/projects/vanbags-erp/demo` | Done | `app/projects/[slug]/demo/page.tsx` |
 | `/projects/vanbags-maintenance` | Done | `app/projects/[slug]/page.tsx` |
+| `/projects/vanbags-maintenance/demo` | Done | `app/projects/[slug]/demo/page.tsx` |
 | `/projects/fleet-intelligence` | Done | `app/projects/[slug]/page.tsx` |
 | `/projects/data-analytics-portfolio` | Done | `app/projects/[slug]/page.tsx` |
 | `/projects/inventory-management-system` | Done | `app/projects/[slug]/page.tsx` |
@@ -157,7 +160,7 @@ public/
 
 ### Interactive project framework
 
-`/projects/[slug]` renders a dedicated page per project (VanBags ERP Transformation, VanBags Maintenance System, Fleet Intelligence Platform, Data Analyst Portfolio, ERPNext Logistics Demo) — three flagship and two supporting. Sections render only when the matching model flag (`caseStudy`, `architecture`, `demo`, or `repository`) is enabled, so the table of contents and rendered sections always match the data. The page exposes a breadcrumb + project header, a sticky anchor table of contents with scroll-spy, and reusable components (`ProjectSection`, `ProjectHeader`, `ProjectNavigation`, `DemoPreview`, `RepositoryNote`). In Milestone 4A the section bodies for the four non-VanBags projects are intentionally lightweight scaffolding; no invented case-study detail is published. VanBags ERP Transformation now uses a dedicated case-study content module (`content/projects/vanbags-erp.tsx`) with 14 sections. Detailed case-study content rolls out per the roadmap; the VanBags ERP Transformation interactive demo (Milestone 5) is implemented and available, and is a Business Process scenario simulator and ERP Configuration explorer using synthetic data with no backend or database. VanBags Maintenance System is now the second active case study (Milestone 6A, case study only); its interactive Maintenance and Tire Management demo is planned for Milestone 6B.
+`/projects/[slug]` renders a dedicated page per project (VanBags ERP Transformation, VanBags Maintenance System, Fleet Intelligence Platform, Data Analyst Portfolio, ERPNext Logistics Demo) — three flagship and two supporting. Sections render only when the matching model flag (`caseStudy`, `architecture`, `demo`, or `repository`) is enabled, so the table of contents and rendered sections always match the data. The page exposes a breadcrumb + project header, a sticky anchor table of contents with scroll-spy, and reusable components (`ProjectSection`, `ProjectHeader`, `ProjectNavigation`, `DemoPreview`, `RepositoryNote`). In Milestone 4A the section bodies for the four non-VanBags projects are intentionally lightweight scaffolding; no invented case-study detail is published. VanBags ERP Transformation now uses a dedicated case-study content module (`content/projects/vanbags-erp.tsx`) with 14 sections. Detailed case-study content rolls out per the roadmap; the VanBags ERP Transformation interactive demo (Milestone 5) is implemented and available, and is a Business Process scenario simulator and ERP Configuration explorer using synthetic data with no backend or database. VanBags Maintenance System is now the second active case study (Milestone 6A, case study only); its interactive Maintenance and Tire Management demo is implemented in Milestone 6B and available at `/projects/vanbags-maintenance/demo`. The shared demo route (`app/projects/[slug]/demo/page.tsx`) dispatches both the ERP (M5) and Maintenance (M6B) simulations.
 
 ### Project catalogue
 

@@ -23,7 +23,7 @@ import {
   WorkOrderPreview,
   type WorkOrder,
 } from "@/components/projects/vanbags-maintenance/WorkOrderPreview";
-import { cn } from "@/lib/utils";
+import { ButtonLink } from "@/components/ui/ButtonLink";
 import type { NavItem, ProjectSectionDef } from "@/lib/projectContent";
 import type { Project } from "@/data/projects";
 
@@ -880,40 +880,36 @@ function DemoPreviewSection(project: Project): ReactNode {
     <>
       <DemoPreview project={project} />
 
-      <div className="mt-6 rounded-md border border-border bg-popover p-5">
-        <div className="mb-3 flex items-center justify-between gap-3 flex-wrap">
-          <p className="text-xs font-semibold uppercase tracking-wider text-accent">
-            Maintenance demo
+        <div className="mt-6 rounded-md border border-border bg-popover p-5">
+          <div className="mb-3 flex items-center justify-between gap-3 flex-wrap">
+            <p className="text-xs font-semibold uppercase tracking-wider text-accent">
+              Maintenance demo
+            </p>
+            <span className="rounded-full bg-secondary px-2.5 py-0.5 text-xs text-muted-foreground">
+              Live
+            </span>
+          </div>
+
+          <p className="text-sm text-muted-foreground">
+            An interactive Maintenance and Tire Management simulation. Execute
+            corrective and preventive workflows, assign technicians, check parts
+            availability, reserve and issue parts, complete work orders, and manage
+            tire installation and rotation on a graphical vehicle layout.
           </p>
-          <span className="rounded-full bg-secondary px-2.5 py-0.5 text-xs text-muted-foreground">
-            Planned for Milestone 6B
-          </span>
-        </div>
 
-        <p className="text-sm text-muted-foreground">
-          An interactive Maintenance and Tire Management experience is planned for
-          Milestone 6B. It will cover work orders, activity execution, technician
-          assignment, parts availability, reservation and issue, completion, and
-          service history, plus the graphical vehicle/tire layout.
-        </p>
-
-        <div className="mt-4 flex flex-col gap-2 pt-2 sm:flex-row">
-          <button
-            type="button"
-            aria-disabled="true"
-            className={cn(
-              "inline-flex items-center justify-center rounded-md px-4 py-2 text-sm font-medium",
-              "border border-border bg-secondary text-muted-foreground",
-              "cursor-not-allowed opacity-60",
-            )}
-          >
-            Interactive demo (planned for Milestone 6B)
-          </button>
-          <span className="text-xs text-muted-foreground">
-            Preview-only. No functional controls. No data is collected.
-          </span>
+          <div className="mt-4 flex flex-col gap-2 pt-2 sm:flex-row sm:items-center">
+            <ButtonLink
+              href="/projects/vanbags-maintenance/demo"
+              variant="primary"
+              size="md"
+            >
+              Launch Interactive Demo
+            </ButtonLink>
+            <span className="text-xs text-muted-foreground">
+              Synthetic data only. No data is collected or persisted.
+            </span>
+          </div>
         </div>
-      </div>
     </>
   );
 }
@@ -943,9 +939,10 @@ function FutureM6B(): ReactNode {
       </div>
 
       <p className="mt-6 text-xs text-muted-foreground">
-        Future Milestone 6B interactions may include: install tire, remove tire,
-        rotate tire, move position, send to repair, return to warehouse, and scrap
-        tire. None of these are implemented in Milestone 6A.
+        These interactions are available as a live interactive demo for Milestone 6B
+        (see the Maintenance demo above): install tire, remove tire, rotate tire,
+        send to repair, return to warehouse, and scrap tire — each enforcing the
+        asset and position rules described in the business rules.
       </p>
     </>
   );

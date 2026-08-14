@@ -295,6 +295,19 @@ Implemented scope for the route `/projects/vanbags-maintenance`:
 - Preventive maintenance scheduling, downtime capture, and a service-history timeline.
 - Tire management: graphical vehicle axle/position layout, unique tire identity, tire detail, lifecycle states, and tire movement history.
 - Layered solution architecture, ERPNext/Frappe architecture, conceptual entity architecture, modeled business rules, and UAT scenarios. A distinction is drawn between designed module rules and Frappe-native framework behavior.
-- Demo remains preview-only (Milestone 6B); no `/projects/vanbags-maintenance/demo` route is created.
+- Interactive simulation deferred to Milestone 6B (see §16); this milestone (6A) contains no `/projects/vanbags-maintenance/demo` route.
 - Static-first, synthetic data, no backend/database.
+
+## 16. VanBags Maintenance Interactive Simulation (Milestone 6B)
+
+Implemented scope for the route `/projects/vanbags-maintenance/demo`:
+
+- A shared demo route (`app/projects/[slug]/demo/page.tsx`) dispatches both the ERP (Milestone 5) and Maintenance (Milestone 6B) simulations; `generateStaticParams` prerenders both slugs with `dynamicParams = false`.
+- Corrective workflow: report a problem on an asset → creates a Maintenance Request → converts to a Work Order → executes activity-level steps (assign technicians, start/complete activities) → reserve and issue required parts against on-hand stock → complete the Work Order, which preserves a service-history record and returns the asset to operational status.
+- Preventive workflow: a due PM plan generates a planned Work Order and advances the next-due context.
+- Parts logistics: availability, reservation, and issue/consumption are enforced against warehouse stock; outstanding shortages block Work Order completion.
+- Tire lifecycle: graphical vehicle axle/position layout with individually traceable tires; install, rotate, remove, repair, return to warehouse, and scrap actions each enforce position-uniqueness and valid state transitions, with full movement history.
+- A dashboard summarizes open requests, open work orders, PM due, part shortages, and vehicles under maintenance; a Reset control returns the workspace to its initial synthetic state.
+- Business rules prevent invalid transitions: completing a Work Order before all activities are complete and all required parts are issued; installing a tire onto an occupied position; rotating a tire to its current position; assigning two tires to one position; issuing unreserved stock.
+- Static-first, React state only. No backend, database, authentication, or external services. Data is entirely synthetic and illustrative.
 
