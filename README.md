@@ -94,7 +94,7 @@ public/
 
 ## Current Status Snapshot
 
-> Status as of: 2026-08-14 · Milestones 1–5 committed; Milestones 6A & 6B implemented and validated (uncommitted, ready for review)
+> Status as of: 2026-08-14 · Milestones 1–5, 6A & 6B committed (M7A on deck)
 
 ### Milestones
 
@@ -104,8 +104,8 @@ public/
 - **Milestone 4A (interactive project framework)** — complete and committed (`0197e74`).
 - **Milestone 4B (VanBags ERP case study)** — complete and committed (`b73c004`).
 - **Milestone 5 (VanBags ERP simulator)** — complete and committed (`3d4dfe6`).
-- **Milestone 6A (VanBags Maintenance case study)** — implemented and validated, uncommitted, ready for manual review.
-- **Milestone 6B (VanBags Maintenance interactive demo)** — implemented and validated, uncommitted, ready for review. Functional Maintenance + Tire Management simulation at `/projects/vanbags-maintenance/demo`.
+- **Milestone 6A (VanBags Maintenance case study)** — implemented, validated, and committed.
+- **Milestone 6B (VanBags Maintenance interactive demo)** — implemented, validated, and committed. Functional Maintenance + Tire Management simulation at `/projects/vanbags-maintenance/demo`.
 
 ### Deliverables status
 
