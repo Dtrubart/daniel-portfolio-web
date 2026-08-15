@@ -1,6 +1,7 @@
 "use client";
 
 import { cn } from "@/lib/utils";
+import { StatusBadge } from "./shared";
 import {
   type FleetIntelligenceState,
   type FleetIntelligenceAction,
@@ -15,21 +16,11 @@ interface RoutesViewProps {
 }
 
 export const RoutesView = ({ state, dispatch }: RoutesViewProps) => {
-  const { selectedRouteId, selectedVehicleId, selectedDriverId, selectedTeamId } = state;
+  const { selectedRouteId } = state;
 
   const targetRoute = selectedRouteId
     ? routes.find((r) => r.id === selectedRouteId)
     : routes[0];
-
-  const targetVehicles = selectedRouteId
-    ? vehicles.filter((v) => v.routeId === selectedRouteId)
-    : vehicles;
-
-  const targetDrivers = targetVehicles.reduce((acc, v) => {
-    const driver = drivers.find((d) => d.vehicleId === v.id);
-    if (driver) acc.push(driver);
-    return acc;
-  }, [] as typeof drivers);
 
   const getRouteMetrics = (route: typeof routes[0]) => {
     const routeVehicles = vehicles.filter((v) => v.routeId === route.id);
@@ -42,7 +33,7 @@ export const RoutesView = ({ state, dispatch }: RoutesViewProps) => {
     const avgEfficiency =
       routeVehicles.length > 0
         ? routeVehicles.reduce(
-            (s, v) => s + (v.telematics?.fuelEfficiency || route.expectedEfficiency),
+            (s, v) => s + (v.fuelEfficiency || route.expectedEfficiency),
             0,
           ) / routeVehicles.length
         : route.expectedEfficiency;

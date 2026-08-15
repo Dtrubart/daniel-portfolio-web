@@ -1,24 +1,42 @@
 import type { Metadata } from "next";
 
-import { Container } from "@/components/ui/Container";
-import { SectionHeading } from "@/components/ui/SectionHeading";
+import { AboutNavigation } from "@/components/about/AboutNavigation";
+import { ProfessionalProfile } from "@/components/about/ProfessionalProfile";
+import { CareerJourney } from "@/components/about/CareerJourney";
+import { CapabilityExplorer } from "@/components/about/CapabilityExplorer";
+import { ExperienceList } from "@/components/about/ExperienceList";
+import { SelectedWork } from "@/components/about/SelectedWork";
+import { SelectedImpact } from "@/components/about/SelectedImpact";
+import { ProfessionalPrinciples } from "@/components/about/ProfessionalPrinciples";
+import { EducationDevelopment } from "@/components/about/EducationDevelopment";
+import { ResumePreview } from "@/components/about/ResumePreview";
+import { ContactCTA } from "@/components/about/ContactCTA";
 
 export const metadata: Metadata = {
   title: "About",
-  description: "Background and systems-thinking approach.",
+  description: "Professional profile of Daniel Trujillo, Industrial Engineer.",
 };
 
 export default function AboutPage() {
   return (
-    <Container className="py-16 md:py-24">
-      <section className="mx-auto max-w-3xl">
-        <SectionHeading
-          level={1}
-          title="About"
-          description="A profile of Daniel Trujillo's engineering background and systems-thinking approach will be documented here."
-          align="center"
-        />
-      </section>
-    </Container>
+    <>
+      <ProfessionalProfile />
+
+      <div className="sticky top-16 z-30 border-t border-b border-border bg-background/90">
+        <div className="mx-auto max-w-5xl px-6 py-2 md:px-0">
+          <AboutNavigation />
+        </div>
+      </div>
+
+      <CareerJourney />
+      <CapabilityExplorer />
+      <ExperienceList />
+      <SelectedWork />
+      <SelectedImpact />
+      <ProfessionalPrinciples />
+      <EducationDevelopment />
+      <ResumePreview />
+      <ContactCTA />
+    </>
   );
 }

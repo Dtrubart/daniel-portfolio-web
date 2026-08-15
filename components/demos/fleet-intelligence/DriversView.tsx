@@ -6,6 +6,7 @@ import {
   type FleetIntelligenceAction,
   drivers,
   vehicles,
+  type Driver,
 } from "./state";
 
 interface DriversViewProps {
@@ -13,24 +14,11 @@ interface DriversViewProps {
   dispatch: (action: FleetIntelligenceAction) => void;
 }
 
-interface DriverScore {
-  id: string;
-  name: string;
-  team: string;
-  vehicleId: string;
-  fuelPerformance: number;
-  idlePercentage: number;
-  overRevPercentage: number;
-  brakingEventsPerKm: number;
-  harshAccelerationEventsPerKm: number;
-  driverScore: number;
-}
-
 export const DriversView = ({ state, dispatch }: DriversViewProps) => {
-  const { selectedVehicleId, selectedDriverId, selectedTeamId, selectedRouteId } = state;
+  const { selectedDriverId, selectedTeamId, selectedRouteId } = state;
 
   // Determine which drivers to show
-  let targetDrivers: DriverScore[] = [];
+  let targetDrivers: Driver[] = [];
   if (selectedDriverId) {
     const d = drivers.find((driver) => driver.id === selectedDriverId);
     if (d) targetDrivers = [d];
@@ -41,7 +29,7 @@ export const DriversView = ({ state, dispatch }: DriversViewProps) => {
       d.vehicleId && vehicles.some((v) => v.id === d.vehicleId && v.routeId === selectedRouteId)
     );
   } else {
-    targetDrivers = drivers as DriverScore[];
+    targetDrivers = drivers;
   }
 
   // Sort by driver score (highest first)

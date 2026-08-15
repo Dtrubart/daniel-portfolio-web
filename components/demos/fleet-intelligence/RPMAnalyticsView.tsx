@@ -1,16 +1,19 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { StatusBadge } from "./shared";
+import {
+  type FleetIntelligenceState,
+  type FleetIntelligenceAction,
+  vehicles,
+} from "./state";
 
 interface RPMAnalyticsViewProps {
-  state: any;
-  dispatch: any;
+  state: FleetIntelligenceState;
+  dispatch: (action: FleetIntelligenceAction) => void;
 }
 
 export const RPMAnalyticsView = ({ state, dispatch }: RPMAnalyticsViewProps) => {
   const { selectedVehicleId } = state;
-  const vehicle = vehicles.find((v) => v.id === selectedVehicleId) || vehicles[0];
 
   return (
     <div className="rounded-lg border border-border bg-popover p-6 shadow-sm">
@@ -45,8 +48,6 @@ export const RPMAnalyticsView = ({ state, dispatch }: RPMAnalyticsViewProps) => 
         <div className="space-y-2 border-lg border-flex flex flex-col">
           {vehicles.map((v) => {
             const isSelected = v.id === selectedVehicleId;
-            const colorBg = isSelected ? "bg-primary/20" : "bg-secondary/50";
-            const colorText = isSelected ? "text-foreground" : "text-muted-foreground";
 
             // Synthetic RPM thresholds per vehicle type
             const thresholds = {
@@ -62,31 +63,30 @@ export const RPMAnalyticsView = ({ state, dispatch }: RPMAnalyticsViewProps) => 
               <div key={v.id} className={cn("rounded-md bg-secondary", isSelected && "border-accent bg-primary/10 transition-colors", "p-3 text-sm")}>
                 <div className="flex items-center space-between">
                   <span className="font-medium text-primary-700 capitalize">{v.brand} {v.model}</span>
-                  <span className={colorText}>{v.telematics?.rpm || 0} RPM current</span>
+                  <span className="text-muted-foreground">{v.rpm || 0} RPM current</span>
                 </div>
 
                 <div className={activeStyle}>
                   <div className="flex items-center space-between">
                     <span className="font-medium text-primary-600">Idle Threshold</span>
-                    
+
                     <div className="rounded-full flex items-center space-x-2 bg-secondary/50 p-1">
                       <span>{thresholds.idleRangeMax} RPM /</span>
                       <span className={isSelected ? "text-green-600" : "text-muted-foreground"}>
-                        {(v.telematics?.idling ? "↑" : "↓")} {
-                          (v.telematics?.idling && v.telematics?.rpm > 1500) ? "Elevated" : "Normal"
-                        </span>
-                      </div>
+                        {(v.drivingEvents?.idling ? "↑" : "↓")}
+                        {(v.drivingEvents?.idling && v.rpm > 1500) ? "Elevated" : "Normal"}
+                      </span>
                     </div>
+                  </div>
 
-                    <div className="flex items-center space-between">
-                      <span className="font-medium text-primary-600">Over-Rev Threshold</span>
-                      
-                      <div className="rounded-full flex items-center space-x-2 bg-secondary/50 p-1">
-                        <span>{thresholds.overRevThreshold} RPM /</span>
-                        <span className={isSelected ? "text-green-600" : "text-muted-foreground"}>
-                          {(v.telematics?.rpm > 1800) ? "Elevated" : "Within Plan"}
-                        </span>
-                      </div>
+                  <div className="flex items-center space-between">
+                    <span className="font-medium text-primary-600">Over-Rev Threshold</span>
+
+                    <div className="rounded-full flex items-center space-x-2 bg-secondary/50 p-1">
+                      <span>{thresholds.overRevThreshold} RPM /</span>
+                      <span className={isSelected ? "text-green-600" : "text-muted-foreground"}>
+                        {(v.rpm > 1800) ? "Elevated" : "Within Plan"}
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -137,4 +137,4 @@ export const RPMAnalyticsView = ({ state, dispatch }: RPMAnalyticsViewProps) => 
       </div>
     </div>
   );
-}
+};

@@ -1,10 +1,20 @@
 "use client";
 
-import { cn } from "@/lib/utils";
+import { useReducer } from "react";
 import {
-  type FleetIntelligenceState,
-  type FleetIntelligenceAction,
+  reducer,
+  initialState,
 } from "./state";
+import { FleetOverviewView } from "./FleetOverviewView";
+import { FuelAnalyticsView } from "./FuelAnalyticsView";
+import { RPMAnalyticsView } from "./RPMAnalyticsView";
+import { MaintenanceView } from "./MaintenanceView";
+import { RoutesView } from "./RoutesView";
+import { DriversView } from "./DriversView";
+import { TeamsView } from "./TeamsView";
+import { AlertsView } from "./AlertsView";
+import { DemoNavigation } from "./DemoNavigation";
+import { Button } from "@/components/ui/Button";
 
 export function FleetIntelligenceDemo() {
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -12,7 +22,7 @@ export function FleetIntelligenceDemo() {
   const renderView = () => {
     switch (state.navView) {
       case "overview":
-        return <DashboardView state={state} dispatch={dispatch} />;
+        return <FleetOverviewView state={state} dispatch={dispatch} />;
       case "fuel":
         return <FuelAnalyticsView state={state} dispatch={dispatch} />;
       case "rpm":
@@ -28,7 +38,7 @@ export function FleetIntelligenceDemo() {
       case "alerts":
         return <AlertsView state={state} dispatch={dispatch} />;
       default:
-        return <DashboardView state={state} dispatch={dispatch} />;
+        return <FleetOverviewView state={state} dispatch={dispatch} />;
     }
   };
 

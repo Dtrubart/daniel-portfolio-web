@@ -89,7 +89,6 @@ export const MaintenanceView = ({ state, dispatch }: MaintenanceViewProps) => {
             <tbody className="divide-y divide-border bg-popover">
               {maintenanceData.map((record) => {
                 const vehicle = vehicles.find((v) => v.id === record.vehicleId);
-                const driver = drivers.find((d) => d.vehicleId === record.vehicleId);
 
                 return (
                   <tr key={`${record.vehicleId}-${record.component}`}>

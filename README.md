@@ -49,6 +49,18 @@ components/
 │   ├── Certifications.tsx
 │   ├── CurrentWork.tsx
 │   └── ContactCTA.tsx
+├── about/                    # M8A: Professional profile components (uncommitted)
+│   ├── AboutNavigation.tsx       # Anchor navigation for About sections
+│   ├── ProfessionalProfile.tsx     # Identity, headline, narrative
+│   ├── CareerJourney.tsx          # 7-stage capability evolution
+│   ├── CapabilityExplorer.tsx     # 6-domain capability model
+│   ├── ExperienceList.tsx         # Professional experience with details/summary
+│   ├── SelectedWork.tsx           # Curated professional work
+│   ├── SelectedImpact.tsx         # Evidence-aware impact metrics
+│   ├── ProfessionalPrinciples.tsx # How I Work
+│   ├── EducationDevelopment.tsx   # Education, certifications, current focus
+│   ├── ResumePreview.tsx          # Resume foundation (PDF deferred to M8C)
+│   └── ContactCTA.tsx            # Contact call-to-action
 ├── layout/
 │   ├── Navbar.tsx        # Client Component (mobile menu toggle)
 │   └── Footer.tsx
@@ -75,6 +87,7 @@ content/
 
 data/
 ├── projects.ts           # Strongly-typed project catalogue (single source of truth)
+├── professional-profile.ts  # M8A: Professional profile data model (uncommitted)
 ├── capabilities.ts
 ├── experience.ts
 ├── certifications.ts
@@ -94,7 +107,7 @@ public/
 
 ## Current Status Snapshot
 
-> Status as of: 2026-08-14 · Milestones 1–5, 6A & 6B committed (M7A on deck)
+> Status as of: 2026-08-15 · Milestones 1–6B, 7A & 7B committed (M8A in progress)
 
 ### Milestones
 
@@ -106,6 +119,9 @@ public/
 - **Milestone 5 (VanBags ERP simulator)** — complete and committed (`3d4dfe6`).
 - **Milestone 6A (VanBags Maintenance case study)** — implemented, validated, and committed.
 - **Milestone 6B (VanBags Maintenance interactive demo)** — implemented, validated, and committed. Functional Maintenance + Tire Management simulation at `/projects/vanbags-maintenance/demo`.
+- **Milestone 7A (Fleet Intelligence case study)** — implemented, validated, and committed.
+- **Milestone 7B (Fleet Intelligence interactive dashboard)** — implementation in progress; committed with pending fixes.
+- **Milestone 8A (Professional Profile Foundation)** — implemented and validated locally but **not committed**. Professional Profile, Career Journey (7 stages), Capability Explorer (6 domains), Experience, Selected Work, Selected Impact, Education & Development, and Resume preview foundation now available at `/about`.
 
 ### Deliverables status
 
@@ -154,7 +170,7 @@ public/
 | `/projects/data-analytics-portfolio` | Done | `app/projects/[slug]/page.tsx` |
 | `/projects/inventory-management-system` | Done | `app/projects/[slug]/page.tsx` |
 | `/experience` | Placeholder | `app/experience/page.tsx` |
-| `/about` | Placeholder | `app/about/page.tsx` |
+| `/about` | M8A (uncommitted) | `app/about/page.tsx` |
 | `/resume` | Placeholder | `app/resume/page.tsx` |
 | `/contact` | Placeholder | `app/contact/page.tsx` |
 
@@ -168,7 +184,7 @@ public/
 
 ### Placeholder routes
 
-The `/experience`, `/about`, `/resume`, and `/contact` routes remain functional placeholders with minimal, non-factual content. Experience history, professional details, resume links, and contact information will be supplied in a later milestone.
+The `/experience`, `/resume`, and `/contact` routes remain functional placeholders with minimal, non-factual content. The `/about` route has been transformed into a production-quality professional profile (Milestone 8A, uncommitted) featuring a 7-stage career journey, 6-domain capability explorer, professional experience, selected work, selected impact, and education/development sections.
 
 ### Configuration
 

@@ -10,6 +10,7 @@ import { ProcessFlow, type FlowStep } from "@/components/projects/ProcessFlow";
 import { UATTable, type UatScenario } from "@/components/projects/UATTable";
 import { DemoPreview } from "@/components/projects/DemoPreview";
 import { RepositoryNote } from "@/components/projects/RepositoryNote";
+import Link from "next/link";
 import type { NavItem, ProjectSectionDef } from "@/lib/projectContent";
 import type { Project } from "@/data/projects";
 
@@ -571,45 +572,44 @@ function DemoEvidence(project: Project): ReactNode {
       <p className="text-sm text-muted-foreground">Scenario-driven validation examples grouped by area:</p>
       <UATTable scenarios={uatScenarios} />
 
-      <h3 className="text-lg font-semibold text-foreground">Interactive Demo Preview</h3>
-      <p className="text-sm text-muted-foreground">
-        Interactive Fleet Intelligence dashboard planned for Milestone 7B.
-      </p>
-      <DemoPreview project={project} />
-      <div className="mt-6 rounded-lg border border-border bg-popover p-5">
-        <div className="mb-3 flex items-center justify-between gap-3 flex-wrap">
-          <p className="text-xs font-semibold uppercase tracking-wider text-accent">Planned Interactive Demo</p>
-          <span className="rounded-full bg-secondary px-2.5 py-0.5 text-xs text-muted-foreground">M7B</span>
-        </div>
-        <p className="text-sm text-muted-foreground">
-          The future demo will include the following sections:
-        </p>
-        <ul className="mt-3 grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
-          {demoFeatures.map((feature) => (
-            <li key={feature.name} className="flex items-center gap-2">
-              <span
-                aria-hidden="true"
-                className="h-2 w-2 shrink-0 rounded-full bg-accent"
-              />
-              <span className="text-sm text-muted-foreground">{feature.name}</span>
-              <span className="text-xs text-muted-foreground/70 ml-auto">{feature.desc}</span>
-            </li>
-          ))}
-        </ul>
-        <div className="mt-4 flex flex-col gap-2 pt-2 sm:flex-row sm:items-center">
-          <button
-            type="button"
-            disabled
-            className="inline-flex items-center justify-center gap-2 rounded-md bg-accent px-4 py-2 text-sm font-medium text-accent-foreground opacity-60"
-            aria-label="Interactive dashboard (planned for Milestone 7B)"
-          >
-            Interactive Fleet Intelligence dashboard planned for Milestone 7B
-          </button>
-          <span className="text-xs text-muted-foreground">
-            CTA remains preview-only; demo routes are part of Milestone 7B.
-          </span>
-        </div>
-      </div>
+<h3 className="text-lg font-semibold text-foreground">Interactive Demo</h3>
+       <p className="text-sm text-muted-foreground">
+         Interactive Fleet Intelligence dashboard is live.
+       </p>
+       <DemoPreview project={project} />
+       <div className="mt-6 rounded-lg border border-border bg-popover p-5">
+         <div className="mb-3 flex items-center justify-between gap-3 flex-wrap">
+           <p className="text-xs font-semibold uppercase tracking-wider text-accent">Interactive Demo</p>
+           <span className="rounded-full bg-secondary px-2.5 py-0.5 text-xs text-muted-foreground">Live</span>
+         </div>
+         <p className="text-sm text-muted-foreground">
+           The interactive dashboard includes the following sections:
+         </p>
+         <ul className="mt-3 grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+           {demoFeatures.map((feature) => (
+             <li key={feature.name} className="flex items-center gap-2">
+               <span
+                 aria-hidden="true"
+                 className="h-2 w-2 shrink-0 rounded-full bg-accent"
+               />
+               <span className="text-sm text-muted-foreground">{feature.name}</span>
+               <span className="text-xs text-muted-foreground/70 ml-auto">{feature.desc}</span>
+             </li>
+           ))}
+         </ul>
+<div className="mt-4 flex flex-col gap-2 pt-2 sm:flex-row sm:items-center">
+            <Link
+              href="/projects/fleet-intelligence/demo"
+              className="inline-flex items-center justify-center gap-2 rounded-md bg-accent px-4 py-2 text-sm font-medium text-accent-foreground"
+              aria-label="Launch Interactive Dashboard"
+            >
+              Launch Interactive Dashboard
+            </Link>
+            <span className="text-xs text-muted-foreground">
+              Live interactive fleet analytics dashboard available.
+            </span>
+          </div>
+       </div>
 
       <h3 className="text-lg font-semibold text-foreground">Technical Evidence</h3>
       <p className="text-sm text-muted-foreground">

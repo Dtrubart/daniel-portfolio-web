@@ -1,10 +1,15 @@
 export interface VehicleTelemetry {
   id: string;
   timestamp: string;
+  brand: string;
+  model: string;
+  type: string;
+  routeId: string;
   odometer: number;
   speed: number;
   rpm: number;
   fuelLevel: number;
+  fuelEfficiency: number;
   ignitionState: string;
   location: string;
   drivingEvents: {
@@ -76,7 +81,7 @@ export interface FleetSnapshot {
 export interface Alert {
   id: string;
   type: string;
-  severity: "Info" | "Attention" | "High";
+  severity: "Info" | "Attention" | "High" | "Critical";
   vehicleId: string;
   driverId?: string;
   message: string;
@@ -89,11 +94,16 @@ export interface Alert {
 export const vehicles: VehicleTelemetry[] = [
   {
     id: "TRK-DEMO-001",
+    timestamp: "2026-07-15T08:30:00Z",
     brand: "Volvo",
     model: "FH16",
     type: "Tractor",
+    routeId: "ROUTE-001",
     odometer: 423000,
+    speed: 0,
+    rpm: 600,
     fuelLevel: 68,
+    fuelEfficiency: 3.1,
     ignitionState: "OFF",
     location: "Vancouver",
     drivingEvents: {
@@ -104,11 +114,16 @@ export const vehicles: VehicleTelemetry[] = [
   },
   {
     id: "TRK-DEMO-002",
+    timestamp: "2026-07-15T09:15:00Z",
     brand: "Freightliner",
     model: "Cascadia",
     type: "Tractor",
+    routeId: "ROUTE-001",
     odometer: 389000,
+    speed: 0,
+    rpm: 1900,
     fuelLevel: 45,
+    fuelEfficiency: 3.1,
     ignitionState: "ON",
     location: "Surrey",
     drivingEvents: {
@@ -119,11 +134,16 @@ export const vehicles: VehicleTelemetry[] = [
   },
   {
     id: "TRK-DEMO-003",
+    timestamp: "2026-07-15T10:00:00Z",
     brand: "Kenworth",
     model: "T680",
     type: "Tractor",
+    routeId: "ROUTE-002",
     odometer: 298000,
+    speed: 0,
+    rpm: 2100,
     fuelLevel: 82,
+    fuelEfficiency: 3.4,
     ignitionState: "ON",
     location: "Abbotsford",
     drivingEvents: {
@@ -134,11 +154,16 @@ export const vehicles: VehicleTelemetry[] = [
   },
   {
     id: "TRK-DEMO-004",
+    timestamp: "2026-07-15T10:30:00Z",
     brand: "International",
     model: "RH Series",
     type: "Straight Truck",
+    routeId: "ROUTE-003",
     odometer: 156000,
+    speed: 0,
+    rpm: 700,
     fuelLevel: 33,
+    fuelEfficiency: 2.9,
     ignitionState: "OFF",
     location: "Richmond",
     drivingEvents: {
@@ -149,11 +174,16 @@ export const vehicles: VehicleTelemetry[] = [
   },
   {
     id: "TRK-DEMO-005",
+    timestamp: "2026-07-16T07:45:00Z",
     brand: "Mercedes-Benz",
     model: "Actros",
     type: "Tractor",
+    routeId: "ROUTE-004",
     odometer: 512000,
+    speed: 0,
+    rpm: 2300,
     fuelLevel: 21,
+    fuelEfficiency: 3.6,
     ignitionState: "ON",
     location: "Kamloops",
     drivingEvents: {
@@ -164,11 +194,16 @@ export const vehicles: VehicleTelemetry[] = [
   },
   {
     id: "TRK-DEMO-006",
+    timestamp: "2026-07-16T08:00:00Z",
     brand: "Hino",
     model: "338",
     type: "Straight Truck",
+    routeId: "ROUTE-005",
     odometer: 87000,
+    speed: 0,
+    rpm: 650,
     fuelLevel: 76,
+    fuelEfficiency: 3.0,
     ignitionState: "OFF",
     location: "Toronto",
     drivingEvents: {
@@ -179,11 +214,16 @@ export const vehicles: VehicleTelemetry[] = [
   },
   {
     id: "TRK-DEMO-007",
+    timestamp: "2026-07-16T10:00:00Z",
     brand: "Isuzu",
     model: "NQR",
     type: "Delivery Truck",
+    routeId: "ROUTE-005",
     odometer: 62000,
+    speed: 0,
+    rpm: 800,
     fuelLevel: 54,
+    fuelEfficiency: 3.0,
     ignitionState: "ON",
     location: "Mississauga",
     drivingEvents: {
@@ -194,11 +234,16 @@ export const vehicles: VehicleTelemetry[] = [
   },
   {
     id: "TRK-DEMO-008",
+    timestamp: "2026-07-16T11:00:00Z",
     brand: "Volvo",
     model: "FH16",
     type: "Tractor",
+    routeId: "ROUTE-006",
     odometer: 334000,
+    speed: 0,
+    rpm: 650,
     fuelLevel: 91,
+    fuelEfficiency: 3.3,
     ignitionState: "OFF",
     location: "Seattle",
     drivingEvents: {
@@ -209,11 +254,16 @@ export const vehicles: VehicleTelemetry[] = [
   },
   {
     id: "TRK-DEMO-009",
+    timestamp: "2026-07-15T09:15:00Z",
     brand: "Freightliner",
     model: "Cascadia",
     type: "Tractor",
+    routeId: "ROUTE-001",
     odometer: 276000,
+    speed: 0,
+    rpm: 1800,
     fuelLevel: 18,
+    fuelEfficiency: 3.1,
     ignitionState: "ON",
     location: "Vancouver",
     drivingEvents: {
@@ -224,11 +274,16 @@ export const vehicles: VehicleTelemetry[] = [
   },
   {
     id: "TRK-DEMO-010",
+    timestamp: "2026-07-15T10:00:00Z",
     brand: "Kenworth",
     model: "T680",
     type: "Tractor",
+    routeId: "ROUTE-002",
     odometer: 445000,
+    speed: 0,
+    rpm: 2200,
     fuelLevel: 57,
+    fuelEfficiency: 3.4,
     ignitionState: "OFF",
     location: "Abbotsford",
     drivingEvents: {
@@ -239,11 +294,16 @@ export const vehicles: VehicleTelemetry[] = [
   },
   {
     id: "TRK-DEMO-011",
+    timestamp: "2026-07-15T10:30:00Z",
     brand: "International",
     model: "RH Series",
     type: "Straight Truck",
+    routeId: "ROUTE-003",
     odometer: 112000,
+    speed: 0,
+    rpm: 750,
     fuelLevel: 42,
+    fuelEfficiency: 2.9,
     ignitionState: "ON",
     location: "Richmond",
     drivingEvents: {
@@ -254,11 +314,16 @@ export const vehicles: VehicleTelemetry[] = [
   },
   {
     id: "TRK-DEMO-012",
+    timestamp: "2026-07-16T08:00:00Z",
     brand: "Hino",
     model: "338",
     type: "Straight Truck",
+    routeId: "ROUTE-005",
     odometer: 73000,
+    speed: 0,
+    rpm: 650,
     fuelLevel: 63,
+    fuelEfficiency: 3.0,
     ignitionState: "OFF",
     location: "Toronto",
     drivingEvents: {

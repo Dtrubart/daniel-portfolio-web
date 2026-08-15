@@ -4,6 +4,9 @@ import { cn } from "@/lib/utils";
 import {
   type FleetIntelligenceState,
   type FleetIntelligenceAction,
+  teams,
+  drivers,
+  type Driver,
 } from "./state";
 
 interface TeamsViewProps {
@@ -12,10 +15,10 @@ interface TeamsViewProps {
 }
 
 export const TeamsView = ({ state, dispatch }: TeamsViewProps) => {
-  const { selectedVehicleId, selectedDriverId, selectedTeamId } = state;
+  const { selectedTeamId } = state;
 
   // Team Score = 0.70 × Mean Driver Score + 0.30 × Lowest Driver Score
-  const calculateTeamScore = (driverArray: any[]) => {
+  const calculateTeamScore = (driverArray: Driver[]) => {
     if (driverArray.length === 0) return 0;
     const meanScore =
       driverArray.reduce((sum, d) => sum + d.driverScore, 0) / driverArray.length;
@@ -112,7 +115,7 @@ export const TeamsView = ({ state, dispatch }: TeamsViewProps) => {
                     <td className="px-4 py-2 text-right text-muted-foreground">
                       {Math.min(
                         ...driversInTeam.map((d) => d.driverScore || 0)
-                      )?.toFixed(1) || "0"}
+                      ).toFixed(1)}
                     </td>
                     <td className="px-4 py-2 font-medium text-foreground text-right">
                       {team.teamScore}
@@ -183,11 +186,11 @@ export const TeamsView = ({ state, dispatch }: TeamsViewProps) => {
                   ];
 
                   return (
-                    <div className="mb-4 p-3 bg-secondary/30 rounded-md border border-border">
+                    <div key={team.id} className="mb-4 p-3 bg-secondary/30 rounded-md border border-border">
                       <h5 className="font-semibold text-foreground mb-2">{team.name}</h5>
                       <div className="flex flex-col gap-2">
                         {metrics.map((m) => (
-                          <div key={m.name} className="flex items-center space-x-3">
+                          <div key={m.name} className="flex items-center gap-x-3">
                             <span className="text-sm font-medium w-20 text-left">{m.name}</span>
                             <div className="flex-1 bg-secondary/50 rounded-full h-3">
                               <div

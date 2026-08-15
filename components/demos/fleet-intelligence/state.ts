@@ -49,6 +49,37 @@ export const initialState: FleetIntelligenceState = {
   comparisonMode: "actual",
 };
 
+export function reducer(
+  state: FleetIntelligenceState,
+  action: FleetIntelligenceAction
+): FleetIntelligenceState {
+  switch (action.type) {
+    case "RESET":
+      return initialState;
+    case "SET_NAV":
+      return { ...state, navView: action.view };
+    case "SELECT_VEHICLE":
+      return { ...state, selectedVehicleId: action.id };
+    case "SELECT_DRIVER":
+      return { ...state, selectedDriverId: action.id };
+    case "SELECT_TEAM":
+      return { ...state, selectedTeamId: action.id };
+    case "SELECT_ROUTE":
+      return { ...state, selectedRouteId: action.id };
+    case "SELECT_ALERT":
+      return { ...state, selectedAlertId: action.id };
+    case "SET_DATE_WINDOW":
+      return { ...state, dateWindow: { start: action.start, end: action.end } };
+    case "TOGGLE_COMPARISON_MODE":
+      return {
+        ...state,
+        comparisonMode: state.comparisonMode === "actual" ? "expected" : "actual",
+      };
+    default:
+      return state;
+  }
+}
+
 // Re-export data types from the data layer
 export {
   vehicles,

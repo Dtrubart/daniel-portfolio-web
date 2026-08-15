@@ -10,12 +10,6 @@ const TONES: Record<string, string> = {
   scheduled: "border-sky-500/30 bg-sky-500/10 text-sky-600 dark:text-sky-400",
 };
 
-const PRIORITY_TONE: Record<string, keyof typeof TONES> = {
-  Low: "neutral",
-  Medium: "open",
-  High: "urgent",
-};
-
 export function StatusBadge({
   value,
   tone = "neutral",
@@ -44,8 +38,9 @@ export function SeverityBadge({ severity }: { severity: string }) {
     Info: "neutral",
     Attention: "open",
     High: "urgent",
+    Critical: "urgent",
   };
-  return <StatusBadge value={severity} tone={severityTone[severity]} />;
+  return <StatusBadge value={severity} tone={severityTone[severity] ?? "neutral"} />;
 }
 
 export function AlertTypeBadge({ type }: { type: string }) {

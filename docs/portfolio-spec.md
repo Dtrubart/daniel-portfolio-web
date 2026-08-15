@@ -264,8 +264,9 @@ Avoid unnecessary functional duplication between projects.
 - **Milestone 6B** — VanBags Maintenance Functional Demo (work orders, logistics integration, graphical tire module)
 - **Milestone 7A** — Fleet Intelligence Case Study
 - **Milestone 7B** — Fleet Intelligence Interactive Dashboard (telemetry, fuel, RPM, theft alerts, flexible maintenance, routes, driver ranking, team ranking, radar chart)
-- **Milestone 8A** — Data Analyst Portfolio Case Study
-- **Milestone 8B** — Data Analyst Interactive Lab (Org Chart Overhaul, Flatten the Stack)
+- **Milestone 8A** — Professional Profile Foundation (`/about` transformation: Professional Profile, Career Journey, Capability Explorer, Experience, Selected Work, Impact, Education, Resume preview)
+- **Milestone 8B** — Data Analyst Portfolio Case Study
+- **Milestone 8C** — Data Analyst Interactive Lab (Org Chart Overhaul, Flatten the Stack)
 - **Milestone 9A** — ERPNext Logistics Case Study
 - **Milestone 9B** — ERPNext Logistics Functional Demo (Items, Warehouses, Material Receipt, Material Issue, Material Transfer, Stock Balance, Stock Ledger)
 - **Milestone 10** — Shared Demo Components
@@ -310,4 +311,60 @@ Implemented scope for the route `/projects/vanbags-maintenance/demo`:
 - A dashboard summarizes open requests, open work orders, PM due, part shortages, and vehicles under maintenance; a Reset control returns the workspace to its initial synthetic state.
 - Business rules prevent invalid transitions: completing a Work Order before all activities are complete and all required parts are issued; installing a tire onto an occupied position; rotating a tire to its current position; assigning two tires to one position; issuing unreserved stock.
 - Static-first, React state only. No backend, database, authentication, or external services. Data is entirely synthetic and illustrative.
+
+## 17. Professional Profile Architecture (Milestone 8A)
+
+`/about` is transformed into a production-quality professional profile for Daniel Trujillo, positioned as an Industrial Engineer specializing in Data, Business Systems & Operations.
+
+### Information Architecture
+
+The About page is composed of 10 sections with semantic anchor navigation:
+
+1. **Professional Profile** — identity, headline, supporting narrative
+2. **Career Journey** — 7-stage capability evolution (timeline visualization)
+3. **Capability Explorer** — 6 primary domains + cross-cutting methods
+4. **Professional Experience** — roles across employers with expandable details
+5. **Selected Work** — curated portfolio of systems, analytics, automation, finance projects
+6. **Selected Impact** — evidence-aware metrics with conservative attribution
+7. **How I Work** — 4 professional principles
+8. **Education & Development** — formal education, certifications, current learning
+9. **Resume Preview** — foundation placeholder for future PDF (deferred to M8C)
+10. **Contact CTA**
+
+### Data Model
+
+A single structured data layer lives in `data/professional-profile.ts` containing:
+- Professional identity (name, headline, supporting line, summary, domain tags)
+- 7 career stages with title, period, theme, domains, evolution
+- 6 capability domains with core areas
+- 6 cross-cutting capabilities (business analysis, systems thinking, etc.)
+- 6 professional experiences with organization, role, period, context, contributions, capabilities, technologies
+- 12 selected work items with evidence levels (verified/supported/contextual)
+- 4 selected impact items with conservative metrics
+- 4 professional principles
+- Education, certifications, and current development items
+
+Evidence levels ("verified", "supported", "contextual") are used internally to prevent unsupported claims. No private achievements are included in public-facing arrays.
+
+### Component Architecture
+
+Components live under `components/about/`:
+- `AboutNavigation.tsx` — semantic anchor links
+- `ProfessionalProfile.tsx` — opening identity section
+- `CareerJourney.tsx` — 7-stage timeline using CSS/Tailwind only (no timeline library)
+- `CapabilityExplorer.tsx` — domain cards + cross-cutting methods
+- `ExperienceList.tsx` — expandable details/summary pattern
+- `SelectedWork.tsx` — project cards linking to portfolio case studies
+- `SelectedImpact.tsx` — evidence-aware impact metrics
+- `ProfessionalPrinciples.tsx` — How I Work section
+- `EducationDevelopment.tsx` — education, certifications, current focus
+- `ResumePreview.tsx` — placeholder foundation
+- `ContactCTA.tsx` — contact call-to-action
+
+### Content Safeguards
+
+- Financing impact states "Financing process supported" — not "Raised $22.5M"
+- All metrics qualified with operational context
+- No fabricated employers, dates, achievements, or financial results
+- Employer-related projects summarized/reconstructed safely
 
