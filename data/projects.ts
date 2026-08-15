@@ -61,7 +61,7 @@ export const projects: Project[] = [
       "Operations analytics solution integrating ERP, telemetry, maintenance, fuel, and related operational information to support performance monitoring and decision-making.",
     technologies: ["Power BI", "Telemetry", "ERP", "Operations Analytics"],
     featured: true,
-    status: "case-study-coming-soon",
+    status: "active",
     objective:
       "Demonstrate fleet analytics, telemetry, KPI design, and data integration across maintenance, fuel, and driver performance.",
     caseStudy: { enabled: true },

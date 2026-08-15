@@ -7,6 +7,10 @@ import {
   vanbagsMaintenanceNav,
   vanbagsMaintenanceSections,
 } from "@/content/projects/vanbags-maintenance";
+import {
+  fleetIntelligenceNav,
+  fleetIntelligenceSections,
+} from "@/content/projects/fleet-intelligence";
 import type { Project } from "@/data/projects";
 
 export interface ProjectSectionDef {
@@ -27,6 +31,9 @@ export function getProjectSections(project: Project): ProjectSectionDef[] {
   if (project.slug === "vanbags-maintenance") {
     return vanbagsMaintenanceSections(project);
   }
+  if (project.slug === "fleet-intelligence") {
+    return fleetIntelligenceSections(project);
+  }
   return lightSections(project);
 }
 
@@ -36,6 +43,9 @@ export function getProjectNav(project: Project): NavItem[] {
   }
   if (project.slug === "vanbags-maintenance") {
     return vanbagsMaintenanceNav();
+  }
+  if (project.slug === "fleet-intelligence") {
+    return fleetIntelligenceNav();
   }
   return lightSections(project).map((section) => ({
     id: section.id,
