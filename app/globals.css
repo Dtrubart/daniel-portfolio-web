@@ -68,3 +68,45 @@
     color: var(--accent-foreground);
   }
 }
+
+@media print {
+  body {
+    background: #ffffff;
+    color: #0f172a;
+    font-size: 11pt;
+    line-height: 1.4;
+  }
+
+  .print-break-inside-avoid {
+    break-inside: avoid;
+  }
+
+  nav,
+  footer,
+  .no-print {
+    display: none !important;
+  }
+
+  a[href]:after {
+    content: " (" attr(href) ")";
+    font-size: 9pt;
+    color: #475569;
+  }
+
+  .bg-accent {
+    background: #2563eb !important;
+    color: #ffffff !important;
+  }
+
+  .border-border {
+    border-color: #e2e8f0 !important;
+  }
+
+  .bg-secondary {
+    background: #f1f5f9 !important;
+  }
+
+  .bg-popover {
+    background: #ffffff !important;
+  }
+}

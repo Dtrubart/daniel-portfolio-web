@@ -17,6 +17,42 @@ export function CapabilityExplorer() {
     ? domains.find((d) => d.id === selectedCapability)
     : null;
 
+  const relatedEmployment = selectedDomain?.relatedExperienceIds
+    ? selectedDomain.relatedExperienceIds
+        .map((id) =>
+          professionalFacts.employment.find((e) => e.id === id),
+        )
+        .filter((e): e is EmploymentFact => e !== undefined)
+    : [];
+
+  const relatedWork = selectedDomain?.relatedWorkIds
+    ? selectedDomain.relatedWorkIds
+        .map((id) =>
+          professionalFacts.selectedWork.find((w) => w.id === id),
+        )
+        .filter((w): w is SelectedWorkFact => w !== undefined)
+    : [];
+
+  const relatedProjects = selectedDomain?.relatedProjectSlugs
+    ? selectedDomain.relatedProjectSlugs
+    : [];
+
+  const isDimmed = (domainId: string) =>
+    selectedCapability !== null && selectedCapability !== domainId;
+
+  const getWorkTypeLabel = (workType: string) => {
+    switch (workType) {
+      case "professional":
+        return "Professional work";
+      case "reconstruction":
+        return "Portfolio reconstruction";
+      case "independent":
+        return "Independent portfolio project";
+      default:
+        return workType;
+    }
+  };
+
   return (
     <section
       id="capabilities"
@@ -33,6 +69,63 @@ export function CapabilityExplorer() {
       </div>
 
       <div className="mx-auto mt-12 max-w-5xl px-6 md:px-0">
+        {/* Capability Network Visualization */}
+        <div className="mb-12">
+          <h3 className="text-lg font-semibold text-foreground mb-6">
+            Capability Network
+          </h3>
+
+          <p className="mb-4 text-center text-xs text-muted-foreground">
+            All six capability domains interconnect through shared experience
+            and applied work. Select a domain to explore.
+          </p>
+
+          <div className="grid grid-cols-2 gap-4 sm:grid-cols-3">
+            {domains.map((domain, index) => {
+              const isSelected = selectedCapability === domain.id;
+              const dimmed = isDimmed(domain.id);
+
+              return (
+                <div key={domain.id} className="flex justify-center">
+                  <button
+                    type="button"
+                    onClick={() => setSelectedCapability(domain.id)}
+                    aria-pressed={isSelected}
+                    aria-label={`Explore ${domain.title} →`}
+                    className={cn(
+                      "relative flex flex-col items-center gap-2 rounded-lg border-2 bg-popover p-4 text-center text-sm font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
+                      isSelected
+                        ? "border-accent bg-accent/10 text-accent ring-1 ring-accent/30"
+                        : dimmed
+                        ? "border-border bg-popover/30 text-muted-foreground grayscale opacity-40"
+                        : "border-border text-foreground hover:border-border/60",
+                    )}
+                  >
+                    <span
+                      className={cn(
+                        "flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-sm font-bold",
+                        isSelected
+                          ? "bg-accent text-accent-foreground"
+                          : "bg-secondary text-muted-foreground",
+                      )}
+                      aria-hidden="true"
+                    >
+                      {index + 1}
+                    </span>
+                    <span className="leading-tight">
+                      {domain.title}
+                    </span>
+                    {!isSelected && (
+                      <span className="sr-only">Explore capability →</span>
+                    )}
+                  </button>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* Capability selector buttons */}
         <div className="mb-8 flex flex-wrap gap-2">
           {domains.map((domain) => (
             <button
@@ -66,7 +159,7 @@ export function CapabilityExplorer() {
           {domains.map((domain) => {
             const isSelected = selectedCapability === domain.id;
             const showAll = !selectedCapability;
-            const isDimmed = selectedCapability && !isSelected;
+            const dimmed = isDimmed(domain.id);
 
             if (!showAll && !isSelected) {
               return (
@@ -94,7 +187,7 @@ export function CapabilityExplorer() {
                 className={cn(
                   "rounded-lg border border-border bg-popover p-5 transition-all",
                   isSelected && "ring-1 ring-accent/30",
-                  isDimmed && "opacity-60 grayscale",
+                  dimmed && "opacity-60 grayscale",
                 )}
               >
                 <div className="flex items-start justify-between gap-2">
@@ -138,66 +231,76 @@ export function CapabilityExplorer() {
           })}
         </div>
 
+        {/* Detail panel */}
         {selectedDomain && (
           <div className="mt-12 rounded-lg border border-border bg-popover p-6">
             <h3 className="text-xl font-semibold text-accent">
               {selectedDomain.title} — Connections
             </h3>
 
-            {selectedDomain.relatedExperienceIds &&
-              selectedDomain.relatedExperienceIds.length > 0 && (
+            <div className="mt-6">
+              <p className="font-medium text-foreground">
+                Evidence chain
+              </p>
+              <p className="mt-1 text-xs text-muted-foreground/60">
+                Capability → Experience → Professional work → Portfolio evidence
+              </p>
+
+              {relatedEmployment.length > 0 && (
                 <div className="mt-4">
                   <p className="font-medium text-foreground">
                     Related experience
                   </p>
-                    <ul className="mt-2 space-y-1 text-sm text-muted-foreground">
-                      {selectedDomain.relatedExperienceIds
-                        .map((expId) =>
-                          professionalFacts.employment.find(
-                            (e) => e.id === expId,
-                          ),
-                        )
-                        .filter((e): e is EmploymentFact => e !== undefined)
-                        .map((emp) => (
-                          <li key={emp.id}>
-                            {emp.role} — {emp.organization}
-                          </li>
-                        ))}
-                    </ul>
+                  <ul className="mt-1 space-y-1 text-sm text-muted-foreground">
+                    {relatedEmployment.map((emp) => (
+                      <li key={emp.id}>
+                        {emp.role} — {emp.organization}
+                        <span className="text-xs text-muted-foreground/60">
+                          {" "}
+                          ({emp.periodStart} – {emp.periodEnd})
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
               )}
 
-            {selectedDomain.relatedWorkIds &&
-              selectedDomain.relatedWorkIds.length > 0 && (
+              {relatedWork.length > 0 && (
                 <div className="mt-4">
                   <p className="font-medium text-foreground">
                     Related work
                   </p>
-                    <ul className="mt-2 space-y-1 text-sm text-muted-foreground">
-                      {selectedDomain.relatedWorkIds
-                        .map((workId) =>
-                          professionalFacts.selectedWork.find(
-                            (w) => w.id === workId,
-                          ),
-                        )
-                        .filter((w): w is SelectedWorkFact => w !== undefined)
-                        .map((work) => (
-                          <li key={work.id}>
-                            {work.title} ({work.workType})
-                          </li>
-                        ))}
-                    </ul>
+                  <ul className="mt-1 space-y-1 text-sm text-muted-foreground">
+                    {relatedWork.map((work) => (
+                      <li key={work.id} className="flex items-start justify-between gap-2">
+                        <span>
+                          {work.title}
+                          {" — "}
+                          <span className="text-xs text-muted-foreground/60">
+                            {getWorkTypeLabel(work.workType)}
+                          </span>
+                        </span>
+                        {work.relatedProjectSlug && (
+                          <a
+                            href={`/projects/${work.relatedProjectSlug}`}
+                            className="text-xs text-accent underline"
+                          >
+                            View case study →
+                          </a>
+                        )}
+                      </li>
+                    ))}
+                  </ul>
                 </div>
               )}
 
-            {selectedDomain.relatedProjectSlugs &&
-              selectedDomain.relatedProjectSlugs.length > 0 && (
+              {relatedProjects.length > 0 && (
                 <div className="mt-4">
                   <p className="font-medium text-foreground">
                     Related portfolio projects
                   </p>
-                  <ul className="mt-2 space-y-1 text-sm text-muted-foreground">
-                    {selectedDomain.relatedProjectSlugs.map((slug) => (
+                  <ul className="mt-1 space-y-1 text-sm text-muted-foreground">
+                    {relatedProjects.map((slug) => (
                       <li key={slug}>
                         <a
                           href={`/projects/${slug}`}
@@ -210,6 +313,7 @@ export function CapabilityExplorer() {
                   </ul>
                 </div>
               )}
+            </div>
 
             <p className="mt-4 text-xs text-muted-foreground/60">
               Evidence: <strong>{selectedDomain.evidence}</strong>

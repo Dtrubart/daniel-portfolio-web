@@ -2,15 +2,19 @@ import type { ReactNode } from "react";
 
 import { DemoPreview } from "@/components/projects/DemoPreview";
 import { RepositoryNote } from "@/components/projects/RepositoryNote";
+import {
+  fleetIntelligenceNav,
+  fleetIntelligenceSections,
+} from "@/content/projects/fleet-intelligence";
+import {
+  personalPortfolioPlatformNav,
+  personalPortfolioPlatformSections,
+} from "@/content/projects/personal-portfolio-platform";
 import { vanbagsErpNav, vanbagsErpSections } from "@/content/projects/vanbags-erp";
 import {
   vanbagsMaintenanceNav,
   vanbagsMaintenanceSections,
 } from "@/content/projects/vanbags-maintenance";
-import {
-  fleetIntelligenceNav,
-  fleetIntelligenceSections,
-} from "@/content/projects/fleet-intelligence";
 import type { Project } from "@/data/projects";
 
 export interface ProjectSectionDef {
@@ -34,6 +38,9 @@ export function getProjectSections(project: Project): ProjectSectionDef[] {
   if (project.slug === "fleet-intelligence") {
     return fleetIntelligenceSections(project);
   }
+  if (project.slug === "personal-portfolio-platform") {
+    return personalPortfolioPlatformSections(project);
+  }
   return lightSections(project);
 }
 
@@ -46,6 +53,9 @@ export function getProjectNav(project: Project): NavItem[] {
   }
   if (project.slug === "fleet-intelligence") {
     return fleetIntelligenceNav();
+  }
+  if (project.slug === "personal-portfolio-platform") {
+    return personalPortfolioPlatformNav();
   }
   return lightSections(project).map((section) => ({
     id: section.id,

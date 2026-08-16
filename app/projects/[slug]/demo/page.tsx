@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { ERPWorkflowDemo } from "@/components/demos/vanbags-erp/ERPWorkflowDemo";
 import { MaintenanceDemo } from "@/components/demos/vanbags-maintenance/MaintenanceDemo";
 import { FleetIntelligenceDemo } from "@/components/demos/fleet-intelligence/FleetIntelligenceDemo";
+import { ArchitectureExplorer } from "@/components/demos/personal-portfolio-platform/ArchitectureExplorer";
 import { ButtonLink } from "@/components/ui/ButtonLink";
 import { Container } from "@/components/ui/Container";
 import { projects, type Project } from "@/data/projects";
@@ -15,6 +16,7 @@ export async function generateStaticParams() {
     { slug: "vanbags-erp" },
     { slug: "vanbags-maintenance" },
     { slug: "fleet-intelligence" },
+    { slug: "personal-portfolio-platform" },
   ];
 }
 
@@ -35,7 +37,9 @@ export async function generateMetadata({
       ? "ERP"
       : project.slug === "vanbags-maintenance"
       ? "Maintenance"
-      : "Dashboard";
+      : project.slug === "fleet-intelligence"
+      ? "Dashboard"
+      : "Architecture Explorer";
 
   return {
     title: `${project.title} — Interactive ${kind} Simulation`,
@@ -44,7 +48,9 @@ export async function generateMetadata({
         ? "Interactive ERP consulting simulation for the VanBags ERP Transformation."
         : project.slug === "vanbags-maintenance"
         ? "Interactive maintenance-operations simulation for the VanBags Maintenance System. Manage work orders, technicians, parts, preventive plans, and tire logistics."
-        : "Interactive fleet analytics simulation for the Fleet Intelligence Platform. Monitor vehicles, analyze fuel efficiency, track maintenance, and evaluate driver performance.",
+        : project.slug === "fleet-intelligence"
+        ? "Interactive fleet analytics simulation for the Fleet Intelligence Platform. Monitor vehicles, analyze fuel efficiency, track maintenance, and evaluate driver performance."
+        : "Interactive architecture exploration of the modular Next.js portfolio platform. Inspect presentation, content, data, project framework, demo, and platform layers.",
   };
 }
 
@@ -68,7 +74,9 @@ export default async function DemoPage({
       ? "ERP"
       : project.slug === "vanbags-maintenance"
       ? "Maintenance"
-      : "Dashboard";
+      : project.slug === "fleet-intelligence"
+      ? "Dashboard"
+      : "Architecture Explorer";
 
   return (
     <section className="py-16 md:py-24">
@@ -95,7 +103,9 @@ export default async function DemoPage({
               ? "An interactive ERP consulting simulation. Navigate the business process workflow or explore the underlying ERP configuration."
               : project.slug === "vanbags-maintenance"
               ? "An interactive maintenance-operations simulation. Execute corrective and preventive workflows, assign technicians, reserve and issue parts, and manage tire installation and rotation."
-              : "An interactive fleet analytics simulation for the Fleet Intelligence Platform. Monitor vehicles, analyze fuel efficiency, track maintenance, and evaluate driver performance."}
+              : project.slug === "fleet-intelligence"
+              ? "An interactive fleet analytics simulation for the Fleet Intelligence Platform. Monitor vehicles, analyze fuel efficiency, track maintenance, and evaluate driver performance."
+              : "An interactive architecture exploration of the modular Next.js portfolio platform. Inspect presentation, content, data, project framework, demo, and platform layers."}
             <span className="block mt-1">
               All data is synthetic and illustrative. This is a portfolio
               simulation, not a live production system.
@@ -107,8 +117,10 @@ export default async function DemoPage({
           <ERPWorkflowDemo />
         ) : project.slug === "vanbags-maintenance" ? (
           <MaintenanceDemo />
-        ) : (
+        ) : project.slug === "fleet-intelligence" ? (
           <FleetIntelligenceDemo />
+        ) : (
+          <ArchitectureExplorer />
         )}
       </Container>
     </section>

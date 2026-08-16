@@ -21,7 +21,7 @@ export const experience: ExperienceEntry[] = [
       "Worked across ERP systems, telemetry, operational analytics, maintenance information, and management reporting.",
   },
   {
-    company: "AG Group",
+    company: "Able Group",
     role: "Data & Operations Analyst",
     themes: ["Operations", "Supply Chain", "Analytics"],
     description:

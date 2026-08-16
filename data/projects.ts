@@ -100,4 +100,20 @@ export const projects: Project[] = [
     demo: { enabled: true, type: "software" },
     repository: { enabled: true },
   },
+  {
+    slug: "personal-portfolio-platform",
+    title: "Personal Portfolio Platform",
+    category: "Software Architecture / Product Design",
+    description:
+      "A modular professional portfolio platform integrating career information, interactive business case studies, functional simulations, and technical evidence within a scalable Next.js architecture.",
+    technologies: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Git", "GitHub", "Vercel"],
+    featured: false,
+    status: "active",
+    objective:
+      "Design and build a modular professional portfolio platform that integrates career information, interactive business case studies, functional simulations, and technical evidence within a scalable Next.js architecture.",
+    caseStudy: { enabled: true },
+    architecture: { enabled: true },
+    demo: { enabled: true, type: "software" },
+    repository: { enabled: true },
+  },
 ];

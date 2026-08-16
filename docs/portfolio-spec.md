@@ -252,6 +252,7 @@ The five projects must not feel like the same project repeated. Each has a diffe
 - **Fleet Intelligence Platform** — analyze and optimize fleet operations.
 - **Data Analyst Portfolio** — demonstrate multi-tool analytical problem solving.
 - **ERPNext Logistics Demo** — demonstrate ERP transactional logistics logic.
+- **Personal Portfolio Platform** — software architecture / product-development case study for this portfolio website itself.
 
 Avoid unnecessary functional duplication between projects.
 
@@ -265,16 +266,19 @@ Avoid unnecessary functional duplication between projects.
 - **Milestone 7A** — Fleet Intelligence Case Study
 - **Milestone 7B** — Fleet Intelligence Interactive Dashboard (telemetry, fuel, RPM, theft alerts, flexible maintenance, routes, driver ranking, team ranking, radar chart)
 - **Milestone 8A** — Professional Profile Foundation (`/about` transformation: Professional Profile, Career Journey, Capability Explorer, Experience, Selected Work, Impact, Education, Resume preview)
-- **Milestone 8B** — Data Analyst Portfolio Case Study
-- **Milestone 8C** — Data Analyst Interactive Lab (Org Chart Overhaul, Flatten the Stack)
-- **Milestone 9A** — ERPNext Logistics Case Study
-- **Milestone 9B** — ERPNext Logistics Functional Demo (Items, Warehouses, Material Receipt, Material Issue, Material Transfer, Stock Balance, Stock Ledger)
-- **Milestone 10** — Shared Demo Components
-- **Milestone 11** — Cross-Project Visual and Responsive Polish
-- **Milestone 12** — Experience / About / Resume / Contact
-- **Milestone 13** — GitHub / Technical Evidence Integration
-- **Milestone 14** — SEO / Metadata / Structured Discoverability
-- **Milestone 15** — Production Deployment
+- **Milestone 8B** — Interactive Professional Profile (interactive career journey timeline, capability network explorer, evidence chains)
+- **Milestone 8C** — Resume Integration (`/resume` page derived from `data/professional-facts.ts`; print-friendly layout; About → Resume CTA)
+- **Milestone 8D** — Contact redesign (interest areas, public location, pending verification contact details, data-safety compliant)
+- **Milestone 9A** — Personal Portfolio Platform Case Study (case study content, navigation, architecture documentation)
+- **Milestone 9B** — Personal Portfolio Platform Interactive Architecture Explorer (interactive layer visualization)
+- **Milestone 10A** — ERPNext Logistics Case Study
+- **Milestone 10B** — ERPNext Logistics Functional Demo (Items, Warehouses, Material Receipt, Material Issue, Material Transfer, Stock Balance, Stock Ledger)
+- **Milestone 11** — Shared Demo Components
+- **Milestone 12** — Cross-Project Visual and Responsive Polish
+- **Milestone 13** — Experience / About / Resume / Contact consolidation
+- **Milestone 14** — GitHub / Technical Evidence Integration
+- **Milestone 15** — SEO / Metadata / Structured Discoverability
+- **Milestone 16** — Production Deployment
 
 ## 14. VanBags ERP Interactive Simulation (Milestone 5)
 
@@ -328,7 +332,7 @@ The About page is composed of 10 sections with semantic anchor navigation:
 6. **Selected Impact** — evidence-aware metrics with conservative attribution
 7. **How I Work** — 4 professional principles
 8. **Education & Development** — formal education, certifications, current learning
-9. **Resume Preview** — foundation placeholder for future PDF (deferred to M8C)
+9. **Resume Preview** — foundation with View Resume link to `/resume` (M8C)
 10. **Contact CTA**
 
 ### Data Model
@@ -338,7 +342,7 @@ A single structured data layer lives in `data/professional-profile.ts` containin
 - 7 career stages with title, period, theme, domains, evolution
 - 6 capability domains with core areas
 - 6 cross-cutting capabilities (business analysis, systems thinking, etc.)
-- 6 professional experiences with organization, role, period, context, contributions, capabilities, technologies
+- 7 professional experiences with organization, role, period, context, contributions, capabilities, technologies (including Able Group)
 - 12 selected work items with evidence levels (verified/supported/contextual)
 - 4 selected impact items with conservative metrics
 - 4 professional principles
@@ -367,4 +371,106 @@ Components live under `components/about/`:
 - All metrics qualified with operational context
 - No fabricated employers, dates, achievements, or financial results
 - Employer-related projects summarized/reconstructed safely
+
+## 18. Personal Portfolio Platform Case Study (Milestone 9A)
+
+The portfolio website itself is a project case study demonstrating:
+
+- Solution architecture (Next.js App Router, static generation)
+- Information architecture (content/data/presentation separation)
+- Repository architecture (app/, components/, content/, data/, lib/, docs/)
+- Component architecture (interactive demos, project framework)
+- Data/content separation (professional facts, project metadata, synthetic demo data)
+- Interactive demo architecture (Client Components, React state, no backend)
+- Dynamic project routing (`/projects/[slug]`, `/projects/[slug]/demo`)
+- Static generation strategy (`generateStaticParams`, `dynamicParams = false`)
+- State isolation (per-demo React state)
+- Synthetic-data architecture (portfolio data layer)
+- Reusable component design
+- Development workflow (lint, build, type-check)
+- Validation strategy (manual visual QA across breakpoints)
+- Git/GitHub workflow (uncommitted milestones for review)
+- Deployment architecture (Vercel)
+
+### Architecture Explorer Demo (Milestone 9B)
+
+The Personal Portfolio Platform case study now includes an interactive
+Architecture Explorer demo at `/projects/personal-portfolio-platform/demo`.
+
+The explorer allows visitors to select from six architecture layers
+(Presentation, Content, Professional Data, Project Framework, Interactive Demos,
+Platform & Delivery) and inspect:
+
+- Layer purpose, modules, responsibilities, and decisions
+- Professional data flow (facts → presentation model → pages)
+- Project framework routing (catalogue → dynamic route → content module)
+- Repository structure with expandable folder tree
+- Architecture decisions (expandable ADR-style cards)
+- Project architecture examples (actual demos and patterns)
+- Development pipeline and quality gates
+- Evolution roadmap (implemented vs. planned)
+
+The M9A case-study Architecture Explorer preview section has been updated with
+a live **Launch Architecture Explorer** CTA.
+
+#### M9C Internationalization Extension (Planned)
+
+Internationalization remains a planned M9C extension. The future concept:
+
+```
+Locale Layer
+        ↓
+EN / ES presentation content
+        ↓
+Shared canonical professional facts
+```
+
+Routes: `/en/...` and `/es/...`
+Language switcher, hreflang tags, and localized metadata are future work.
+Not implemented in M9B.
+
+### Approved Architecture Model
+
+Portfolio Platform
+
+Presentation Layer
+- Home · About · Contact · Projects Catalogue · Project Pages
+
+Content Layer
+- Professional Profile · Career Journey · Experience · Capabilities · Selected Work · Project Case Studies
+
+Interactive Applications
+- VanBags ERP Simulator · VanBags Maintenance Demo · Fleet Intelligence Dashboard · Architecture Explorer · Future project demos
+
+Data Layer
+- Professional Facts · Professional Profile Data · Project Metadata · Synthetic Demo Data · Configuration Data
+
+Platform / Delivery
+- Next.js · React · TypeScript · Tailwind CSS · Git · GitHub · Vercel
+
+### Case Study Structure (Implemented in Milestone 9A)
+
+1. Overview
+2. Information Architecture
+3. Solution Architecture
+4. Repository Architecture
+5. Data & Professional Facts Architecture
+6. Project Framework
+7. Interactive Demo Architecture
+8. Component Architecture
+9. Development & Quality
+10. Deployment Architecture
+11. Evolution Roadmap
+12. Technical Evidence
+13. Architecture Explorer Preview
+
+### Interactive Architecture Explorer (Milestone 9B — Deferred)
+
+The Interactive Architecture Explorer is now implemented in Milestone 9B at
+`/projects/personal-portfolio-platform/demo`. The M9A case-study preview section
+has been updated to a live **Launch Architecture Explorer** CTA. Users can select
+from six layers — Presentation, Content, Professional Data, Project Framework,
+Interactive Demos, and Platform & Delivery — and inspect repository structure,
+data flows, architecture decisions, project examples, and the development
+pipeline. M9C Internationalization remains planned for a future milestone.
 
