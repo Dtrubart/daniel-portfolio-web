@@ -9,8 +9,8 @@ import { cn } from "@/lib/utils";
 const anchors = [
   { id: "profile", label: "Profile" },
   { id: "journey", label: "Career Journey" },
-  { id: "capabilities", label: "Capabilities" },
   { id: "experience", label: "Experience" },
+  { id: "capabilities", label: "Capabilities" },
   { id: "work", label: "Selected Work" },
   { id: "impact", label: "Selected Impact" },
   { id: "education", label: "Education" },

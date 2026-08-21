@@ -27,6 +27,8 @@ export function personalPortfolioPlatformNav(): NavItem[] {
 const evidenceTypes = [
   "Repository structure (app/, components/, content/, data/, lib/, docs/)",
   "Project catalogue and dynamic routing (data/projects.ts, app/projects/[slug]/)",
+  "Solution areas data model (data/solutions.ts) with typed capabilities and project cross-references",
+  "Bidirectional Solutions <-> Projects mapping via projectSolutionLinks (M10B)",
   "Professional data architecture (facts vs. presentation model)",
   "Static generation strategy (generateStaticParams, dynamicParams = false)",
   "Case-study content modules (content/projects/*.tsx)",
@@ -95,7 +97,10 @@ function InformationArchitecture(): ReactNode {
             <li>About (Profile, Journey, Capabilities, Experience, Work, Impact)</li>
             <li>Projects (Catalogue, Case Studies, Interactive Demos)</li>
             <li>Resume</li>
+            <li>Solutions</li>
             <li>Contact</li>
+            <li className="text-muted-foreground">Experience (optional module — route preserved, not in active navigation)
+            <li>Solutions (M10A — route active, not in primary navbar pending review)</li></li>
           </ul>
         </ConfigurationPanel>
         <ConfigurationPanel title="Navigation Flow">
@@ -111,8 +116,10 @@ function InformationArchitecture(): ReactNode {
       </div>
       <p className="mt-4 text-sm text-muted-foreground">
         The architecture separates presentation, content, and data so that
-        professional facts can feed the About page, Resume, Experience, and
-        individual case studies without duplication.
+        professional facts can feed the About page, Resume, Solutions, Experience, and
+        individual case studies without duplication. The Experience route is
+        preserved as an optional module in `lib/site.ts` (via `optionalNav`)
+        while active navigation is defined by the `nav` array.
       </p>
     </>
   );
@@ -127,6 +134,8 @@ function SolutionArchitecture(): ReactNode {
           <li>About</li>
           <li>Projects</li>
           <li>Resume</li>
+          <li>Solutions</li>
+          <li>Solutions &#8596; Projects integration (M10B)</li>
           <li>Contact</li>
         </ul>
       </ConfigurationPanel>
@@ -186,6 +195,9 @@ function RepositoryArchitecture(): ReactNode {
 │       └── demo/
 │           └── page.tsx      # interactive simulation route
 ├── resume/
+├── solutions/
+│   ├── page.tsx           # Solutions page with grid, explorer, foundation
+│   └── (components co-located in components/solutions/)
 └── layout.tsx
 
 components/
@@ -203,6 +215,7 @@ data/
 ├── professional-facts.ts
 ├── professional-profile.ts
 └── projects.ts
+├── solutions.ts
 
 docs/
 └── portfolio-spec.md
@@ -242,7 +255,7 @@ function DataArchitecture(): ReactNode {
             { label: "Presentation Model", detail: "data/professional-profile.ts" },
             {
               label: "Presentation",
-              detail: "About / Resume / Experience / Contact",
+              detail: "About / Resume / Solutions / Contact (Experience available via optionalNav)",
             },
           ]}
         />
@@ -386,11 +399,13 @@ function ComponentArchitecture(): ReactNode {
       </ConfigurationPanel>
       <ConfigurationPanel title="Domain Components">
         <ul className="list-disc list-outside ml-5 space-y-1 text-sm text-muted-foreground">
-          <li>components/about/ — interactive About presentation</li>
+          <li>components/solutions/ — Solutions page components (ProblemExplorer, SolutionFoundation, SolutionsCTA)</li>
+            <li>components/about/ — interactive About presentation</li>
           <li>components/projects/vanbags-erp/ — ERP demo visuals</li>
           <li>components/projects/vanbags-maintenance/ — maintenance demo visuals</li>
           <li>components/projects/fleet-intelligence/ — dashboard views</li>
           <li>components/demos/ — shared interactive demo components</li>
+          <li>components/solutions/ — Solutions page components (ProblemExplorer, SolutionFoundation, SolutionsCTA)</li>
         </ul>
       </ConfigurationPanel>
     </div>
@@ -469,6 +484,8 @@ function EvolutionRoadmap(): ReactNode {
       <li>Contact consolidation (M8D)</li>
       <li>Remaining project case studies (Data Analyst Portfolio, ERPNext Logistics)</li>
       <li>Architecture Explorer (M9B)</li>
+      <li>Solutions section (M10A)</li>
+      <li>Solutions ↔ Projects integration (M10B)</li>
       <li>Custom domain configuration</li>
       <li>SEO refinement and structured discoverability (M14)</li>
       <li>Additional technical evidence and writing section</li>

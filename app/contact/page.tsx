@@ -1,80 +1,111 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 
 import { Container } from "@/components/ui/Container";
-import { professionalProfile } from "@/data/professional-profile";
-import { professionalFacts } from "@/data/professional-facts";
-
-const interestAreas = [
-  "Data & Analytics",
-  "Business Systems / ERP",
-  "Operations Analytics",
-  "Automation",
-  "Process Improvement",
-] as const;
+import { publicContactConfig } from "@/data/contact";
 
 export const metadata: Metadata = {
-  title: "Contact",
+  title: "Contact | Daniel Trujillo",
   description:
-    "Professional inquiries for Daniel Trujillo — Industrial Engineer specializing in data, ERP & business systems, operations, automation, and process improvement.",
+    "Connect with Daniel Trujillo on LinkedIn and GitHub regarding professional opportunities, collaboration, projects, data, business systems, ERP, operations, automation, and process improvement.",
 };
 
 export default function ContactPage() {
-  const { identity } = professionalProfile;
-  const publicContact = professionalFacts.contact.filter((c) => c.isPublic);
-  const privateContact = professionalFacts.contact.filter((c) => !c.isPublic);
-
   return (
     <Container className="py-16 md:py-24">
-      <section className="mx-auto max-w-2xl space-y-12">
-        <header>
-          <h1 className="text-4xl font-bold tracking-tight text-foreground">
-            Let&apos;s Connect
+      <div className="mx-auto max-w-2xl">
+        <header className="mb-12 text-center">
+          <h1 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
+            Let&rsquo;s connect.
           </h1>
-          <p className="mt-4 text-lg text-muted-foreground">
-            Interested in discussing:
+          <p className="mt-6 text-lg text-muted-foreground">
+            I&rsquo;m always interested in thoughtful conversations around data,
+            business systems, ERP, operational analytics, automation, process
+            improvement, and technology.
           </p>
         </header>
 
-        <div>
-          <ul className="flex flex-wrap gap-x-8 gap-y-2 text-sm font-medium text-foreground">
-            {interestAreas.map((area) => (
+        <div className="mb-12 space-y-2">
+          <p className="text-sm font-medium text-foreground">
+            Professional interests:
+          </p>
+          <ul className="flex flex-wrap gap-x-6 gap-y-2 text-sm font-medium text-foreground">
+            {publicContactConfig.professionalInterests.map((area) => (
               <li key={area}>{area}</li>
             ))}
           </ul>
         </div>
 
-        <div className="space-y-2">
-          <h2 className="text-2xl font-bold text-foreground">{identity.name}</h2>
-          <p className="text-sm text-muted-foreground">{identity.headline}</p>
-          {publicContact.map((c) => (
-            <p key={c.id} className="text-sm text-muted-foreground">
-              {c.value}
-            </p>
-          ))}
+        <div className="space-y-6">
+          <p className="text-sm text-muted-foreground">
+            {publicContactConfig.location.value}
+          </p>
         </div>
+      </div>
 
-        <div className="space-y-4">
-          {privateContact.map((c) => (
-            <div
-              key={c.id}
-              className="flex items-center justify-between rounded-md border border-border bg-secondary px-4 py-3"
-            >
-              <span className="text-sm font-medium text-foreground">
-                {c.label}
-              </span>
-              <span className="text-xs text-muted-foreground/60">
-                Contact details under review
-              </span>
-            </div>
-          ))}
-        </div>
-
-        <p className="border-t border-border pt-6 text-xs text-muted-foreground/60">
-          This page uses only verified professional data. Contact details marked
-          under review are retained in canonical records pending public
-          verification.
-        </p>
-      </section>
+      <div className="mx-auto mt-16 grid max-w-4xl gap-8 md:mt-20 lg:grid-cols-2">
+        <ContactCard
+          label="LinkedIn"
+          href={publicContactConfig.linkedin.href}
+          qrImage="/contact/linkedin-qr.svg"
+          qrAlt="Scan to open LinkedIn"
+          description="Professional profile, experience, and networking."
+        />
+        <ContactCard
+          label="GitHub"
+          href={publicContactConfig.github.href}
+          qrImage="/contact/github-qr.svg"
+          qrAlt="Scan to open GitHub"
+          description="Projects, repositories, and technical evidence."
+        />
+      </div>
     </Container>
+  );
+}
+
+interface ContactCardProps {
+  label: string;
+  href: string;
+  qrImage: string;
+  qrAlt: string;
+  description: string;
+}
+
+function ContactCard({ label, href, qrImage, qrAlt, description }: ContactCardProps) {
+  return (
+    <div className="rounded-lg border border-border bg-popover p-6 shadow-sm sm:p-8">
+      <div className="flex flex-col items-center gap-6 sm:flex-row sm:gap-8">
+        <div className="flex flex-col items-center">
+          <Image
+            src={qrImage}
+            alt={qrAlt}
+            width={160}
+            height={160}
+            className="rounded-md"
+            priority
+          />
+          <p className="mt-3 text-center text-xs text-muted-foreground">
+            {qrAlt}
+          </p>
+        </div>
+
+        <div className="flex-1 text-center sm:text-left">
+          <h3 className="text-lg font-semibold text-foreground">{label}</h3>
+          <p className="mt-1 text-sm text-muted-foreground">{description}</p>
+          <div className="mt-4">
+            <a
+              href={href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex w-full items-center justify-center rounded-md bg-accent px-5 py-2.5 text-sm font-medium text-accent-foreground transition-colors hover:bg-accent-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 sm:w-auto"
+            >
+              {label === "LinkedIn"
+                ? "Connect on LinkedIn"
+                : "Explore my GitHub"}
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }

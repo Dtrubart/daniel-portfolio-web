@@ -333,7 +333,7 @@ export const professionalProfile: ProfessionalProfile = {
       id: "sol-del-pacifico",
       organization: "Sol del Pacífico",
       role: "Finance & IT / Operations → ERP & Telemetry",
-      period: "2021–2024",
+      period: "2021–2025",
       context: "Finance · ERP · Analytics · Fleet · Operations",
       contributions: [
         "Designed and coordinated ERP and telemetry initiatives connecting operations to financial reporting",
@@ -361,7 +361,7 @@ export const professionalProfile: ProfessionalProfile = {
       id: "municipality-la-molina",
       organization: "Municipality of La Molina",
       role: "Administrative Specialist III",
-      period: "2024–2025",
+      period: "2022",
       context: "Innovation · Projects · Stakeholders",
       contributions: [
         "Led innovation and process-improvement projects across municipal operations",
@@ -384,7 +384,7 @@ export const professionalProfile: ProfessionalProfile = {
         "Designed exception-handling and alerting controls",
       ],
       capabilities: ["Automation", "Data Quality", "Finance Operations", "Reconciliation"],
-      technologies: ["Power Automate", "Python", "Excel/VBA"],
+      technologies: ["Power Automate", "Excel/VBA"],
       workSlugs: ["invoice-reconciliation-automation"],
     },
     {
@@ -457,8 +457,8 @@ export const professionalProfile: ProfessionalProfile = {
     },
     {
       id: "fleet-intelligence-driver-performance",
-      title: "Fleet Intelligence & Driver Performance",
-      organization: "Sol del Pacífico / Portfolio",
+      title: "Fleet Intelligence Platform",
+      organization: "Portfolio Case Study",
       category: "Analytics",
       description:
         "Analytics platform integrating ERP, telemetry, maintenance and fuel data with KPI design, driver ranking and team scoring.",
@@ -495,7 +495,7 @@ export const professionalProfile: ProfessionalProfile = {
       category: "Automation",
       description:
         "Automation workflows for invoice reconciliation, exception management and financial reporting across complex processes.",
-      capabilities: ["Power Automate", "Python", "Automation", "Data Quality"],
+      capabilities: ["Power Automate", "Automation", "Data Quality"],
       workSlugs: [],
       evidence: "contextual",
     },

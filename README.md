@@ -11,6 +11,7 @@ Source code for the professional portfolio of **Daniel Trujillo**, an Industrial
 - **TypeScript**
 - **Tailwind CSS 4**
 - **ESLint**
+- **Resend** (transactional email delivery)
 - **npm**
 
 ## Development
@@ -39,6 +40,7 @@ app/
 ├── about/page.tsx
 ├── resume/page.tsx
 └── contact/page.tsx
+├── solutions/page.tsx          # M10A: Solutions page (not in navbar)
 
 components/
 ├── home/
@@ -79,6 +81,12 @@ components/
 │   ├── vanbags-maintenance/  # M6B: Maintenance + Tire Management simulator
 │   ├── fleet-intelligence/   # M7B: Fleet analytics dashboard
 │   └── personal-portfolio-platform/  # M9B: Interactive Architecture Explorer
+├── solutions/             # M10A: Solutions page components
+    │   ├── SolutionsHero.tsx          # Page intro
+    │   ├── ProblemExplorer.tsx       # Interactive problem-to-solution selector
+    │   ├── SolutionFoundation.tsx     # IE foundation SVG diagram
+    │   ├── SolutionsCTA.tsx          # Contact call-to-action
+    │   └── SolutionCard.tsx          # Solution area card
 └── ui/
     ├── Container.tsx     # Responsive max-width wrapper
     ├── SectionHeading.tsx
@@ -94,6 +102,7 @@ content/
 
 data/
 ├── projects.ts           # Strongly-typed project catalogue (single source of truth)
+├── solutions.ts          # M10A: Solution areas data model (typed, 4 areas)
 ├── professional-profile.ts  # M8A: Professional profile data model (uncommitted)
 ├── capabilities.ts
 ├── experience.ts
@@ -119,7 +128,7 @@ public/
 
 ## Current Status Snapshot
 
-> Status as of: 2026-08-15 · Milestones 1–7B committed, 8A & 8B in progress (uncommitted), 9A & 9B implemented (uncommitted)
+> Status as of: 2026-08-16 · Milestones 1–7B committed, 8A–8D, 9A–9B, and 10A-10B implemented (uncommitted)
 
 ### Milestones
 
@@ -131,14 +140,17 @@ public/
 - **Milestone 5 (VanBags ERP simulator)** — complete and committed (`3d4dfe6`).
 - **Milestone 6A (VanBags Maintenance case study)** — implemented, validated, and committed.
 - **Milestone 6B (VanBags Maintenance interactive demo)** — implemented, validated, and committed. Functional Maintenance + Tire Management simulation at `/projects/vanbags-maintenance/demo`.
+  - Includes a Guided Tour mode (?mode=guided) - a 13-step walkthrough of the maintenance system's key workflows including equipment registration, PM scheduling, work order generation, parts logistics, backlog management, and tire lifecycle tracing.
 - **Milestone 7A (Fleet Intelligence case study)** — implemented, validated, and committed.
 - **Milestone 7B (Fleet Intelligence interactive dashboard)** — implementation in progress; committed with pending fixes.
 - **Milestone 8A (Professional Profile Foundation)** — implemented and validated locally but **not committed**. Professional Profile, Career Journey (7 stages), Capability Explorer (6 domains), Experience, Selected Work, Selected Impact, Education & Development, and Resume preview foundation now available at `/about`.
 - **Milestone 8B (Interactive Professional Profile)** — in progress, **not committed**. Enhanced Career Journey with interactive timeline and stage detail cards; Capability Explorer with capability network visualization and evidence chains; Professional Principles as visual problem-solving flow.
 - **Employer Factual Update** — in progress, **not committed**. Renamed "AG Group" to "Able Group" across all data sources; corrected employment period to Feb 2026 – Jun 2026; enriched operational and analytical experience details.
 - **Milestone 8C (Resume Integration)** — implemented (uncommitted). Production-quality resume page at `/resume` derived from canonical professional facts with print-friendly layout.
-- **Milestone 8D (Contact redesign)** — implemented (uncommitted). Interest-area focus, public location, contact details pending verification, data-safety compliant.
+- **Milestone 8D (Contact page)** — implemented (uncommitted). Production contact experience at `/contact` featuring LinkedIn and GitHub as public channels with QR codes, verified location, and professional interests. Server-side email form, Resend integration, and anti-spam infrastructure are implemented but preserved as dormant code — not rendered to visitors in the current release. See §46 of `docs/portfolio-spec.md` for architecture details.
 - **Personal Portfolio Platform** — case study implemented (M9A) and interactive Architecture Explorer (M9B, both uncommitted). Modular Next.js portfolio platform architecture documented with live interactive layer exploration.
+- - **Milestone 10A (Solutions)** — implemented (uncommitted). New `/solutions` route presenting four capability-based solution areas (Operational Intelligence, Business Systems & ERP, Workflow Automation, Operational Excellence) connected to an Industrial Engineering foundation, with an interactive problem explorer. Routes to projects for cross-reference. Not added to primary navbar pending review.
+- **Milestone 10B (Solutions <-> Projects Integration)** -- implemented (uncommitted). Bidirectional cross-referencing: canonical projectSolutionLinks mapping derives both Project-to-Solution and Solution-to-Project relationships. /projects gains a SolutionFilter; ProjectCard shows subtle solution tags; project case studies gain Capabilities Demonstrated section.
 
 ### Deliverables status
 
@@ -173,7 +185,9 @@ public/
 | Architecture Explorer (demo) | M9B | Done | Interactive architecture explorer at `/projects/personal-portfolio-platform/demo` |
 | Reusable case-study components | M4B | Done | `ProcessFlow`, `UATTable`, `ConfigurationPanel` |
 | ESLint | M4A | Passing | `npm run lint` clean |
-| Production build | M4A | Passing | `npm run build` succeeds (static-first); 19 static routes prerendered incl. 6 project pages + 4 demo pages |
+| Production build | M4A | Passing | `npm run build` succeeds (static-first); 21 static routes prerendered incl. 6 project pages + 4 demo pages + /solutions route |
+| Solutions section (page + data + components) | M10A | Implemented | `/solutions` route with interactive Problem Explorer, Solution Foundation SVG diagram, typed data model, and project cross-references |
+| Solutions <-> Projects integration | M10B | Implemented | Bidirectional mapping via projectSolutionLinks; SolutionFilter on /projects; Capabilities Demonstrated on project case studies |
 
 ### Routes
 
@@ -190,10 +204,12 @@ public/
 | `/projects/inventory-management-system` | Done | `app/projects/[slug]/page.tsx` |
 | `/projects/personal-portfolio-platform` | M9A (uncommitted) | `app/projects/[slug]/page.tsx` |
 | `/projects/personal-portfolio-platform/demo` | M9B (uncommitted) | `app/projects/[slug]/demo/page.tsx` |
-| `/experience` | Placeholder | `app/experience/page.tsx` |
+| `/experience` | Optional (hidden from nav) | `app/experience/page.tsx` |
 | `/about` | M8A/M8B (uncommitted) | `app/about/page.tsx` |
 | `/resume` | M8C (uncommitted) | `app/resume/page.tsx` |
 | `/contact` | M8D (uncommitted) | `app/contact/page.tsx` |
+| `/solutions` | M10A (uncommitted) | `app/solutions/page.tsx` |
+| `/solutions#<anchor>` | M10B (uncommitted) | Stable anchors on each Solution Area |
 
 ### Interactive project framework
 
@@ -205,11 +221,40 @@ public/
 
 ### Placeholder routes
 
-The `/experience` route remains a functional placeholder with minimal, non-factual content. The `/about` route has been transformed into a production-quality professional profile (Milestone 8A/8B, uncommitted) featuring a 7-stage career journey, 6-domain capability explorer, professional experience, selected work, selected impact, and education/development sections. The `/resume` route now serves a production-quality resume (Milestone 8C, uncommitted) derived from canonical professional facts with print-friendly layout. The `/contact` route now serves a data-safety-compliant contact page (Milestone 8D, uncommitted) with verified location and interest areas; email, LinkedIn, and GitHub are retained pending public verification.
+The `/experience` route is preserved as a functional optional module but is hidden from primary navigation. Professional experience is integrated into the About page (`/about#experience`) for the current portfolio configuration. The `/about` route has been transformed into a production-quality professional profile (Milestone 8A/8B, uncommitted) featuring a 7-stage career journey, 6-domain capability explorer, professional experience, selected work, selected impact, and education/development sections. The `/resume` route now serves a production-quality resume (Milestone 8C, uncommitted) derived from canonical professional facts with print-friendly layout. The `/contact` route now serves a production-quality contact experience (Milestone 8D, uncommitted) featuring LinkedIn and GitHub as public channels with QR codes, verified location, and professional interests. Server-side email form infrastructure is implemented but preserved as dormant code — not rendered to visitors.
 
 ### Configuration
 
 `metadataBase` is derived from `NEXT_PUBLIC_SITE_URL` with an `http://localhost:3000` fallback for local development. Set this variable in the hosting environment for a production domain.
+
+### Contact Architecture
+
+The `/contact` page provides a production contact experience featuring
+LinkedIn and GitHub as public channels with QR codes. The server-side email
+delivery infrastructure (POST `/api/contact`, Resend integration, validation,
+anti-spam) is fully implemented but not rendered to visitors in the current
+release. Use the public channels below to get in touch.
+
+**Implemented but dormant:**
+- POST `/api/contact` route handler with full validation
+- Honeypot anti-spam (`website` field) + submission-timing guard
+- Resend email delivery (server-side only; API key never exposed to client)
+- Hidden destination email (`CONTACT_TO_EMAIL`); Reply-To uses visitor email
+
+**Public channels:**
+- LinkedIn: https://www.linkedin.com/in/daniel-trujillo-barthe/
+- GitHub: https://github.com/Dtrubart
+
+Required environment variables (server-only, never `NEXT_PUBLIC_`):
+
+| Variable | Purpose |
+| --- | --- |
+| `RESEND_API_KEY` | Resend API key for sending |
+| `CONTACT_TO_EMAIL` | Private destination inbox |
+| `CONTACT_FROM_EMAIL` | Verified sender email/domain |
+| `CONTACT_FROM_NAME` | Sender display name (optional) |
+
+Copy `.env.example` to `.env.local` and fill in real values before activating email delivery delivery.
 
 ## Project Rules & Specification
 

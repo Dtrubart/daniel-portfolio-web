@@ -10,6 +10,7 @@ import { ProcessFlow, type FlowStep } from "@/components/projects/ProcessFlow";
 import { UATTable, type UatScenario } from "@/components/projects/UATTable";
 import { DemoPreview } from "@/components/projects/DemoPreview";
 import { RepositoryNote } from "@/components/projects/RepositoryNote";
+import { CapabilitiesDemonstrated } from "@/components/projects/CapabilitiesDemonstrated";
 import Link from "next/link";
 import type { NavItem, ProjectSectionDef } from "@/lib/projectContent";
 import type { Project } from "@/data/projects";
@@ -257,6 +258,7 @@ export function fleetIntelligenceNav(): NavItem[] {
     { id: "routes", label: "Routes" },
     { id: "driver-performance", label: "Driver Performance" },
     { id: "architecture", label: "Architecture" },
+    { id: "capabilities", label: "Capabilities Demonstrated" },
     { id: "demo-evidence", label: "Demo / Evidence" },
   ];
 }
@@ -634,6 +636,7 @@ export function fleetIntelligenceSections(project: Project): ProjectSectionDef[]
     { id: "routes", title: "Routes", body: Routes() },
     { id: "driver-performance", title: "Driver Performance", body: DriverPerformance() },
     { id: "architecture", title: "Architecture", body: Architecture() },
+    { id: "capabilities", title: "Capabilities Demonstrated", body: CapabilitiesDemonstrated(project) },
     { id: "demo-evidence", title: "Demo / Evidence", body: DemoEvidence(project) },
   ];
 }

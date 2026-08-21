@@ -1,11 +1,12 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 import { ERPWorkflowDemo } from "@/components/demos/vanbags-erp/ERPWorkflowDemo";
-import { MaintenanceDemo } from "@/components/demos/vanbags-maintenance/MaintenanceDemo";
+import { MaintenanceDemoContainer } from "@/components/demos/vanbags-maintenance/MaintenanceDemoContainer";
 import { FleetIntelligenceDemo } from "@/components/demos/fleet-intelligence/FleetIntelligenceDemo";
 import { ArchitectureExplorer } from "@/components/demos/personal-portfolio-platform/ArchitectureExplorer";
 import { ButtonLink } from "@/components/ui/ButtonLink";
+
 import { Container } from "@/components/ui/Container";
 import { projects, type Project } from "@/data/projects";
 
@@ -26,37 +27,26 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const project = projects.find((project) => project.slug === slug);
-
+  const project = projects.find((p) => p.slug === slug);
   if (!project) {
     return { title: "Demo not found" };
   }
 
   const kind =
-    project.slug === "vanbags-erp"
-      ? "ERP"
-      : project.slug === "vanbags-maintenance"
-      ? "Maintenance"
-      : project.slug === "fleet-intelligence"
-      ? "Dashboard"
-      : "Architecture Explorer";
+    project.slug === "vanbags-erp" ? "ERP" :
+    project.slug === "vanbags-maintenance" ? "Maintenance" :
+    project.slug === "fleet-intelligence" ? "Dashboard" :
+    "Architecture Explorer";
 
   return {
-    title: `${project.title} — Interactive ${kind} Simulation`,
-    description:
-      project.slug === "vanbags-erp"
-        ? "Interactive ERP consulting simulation for the VanBags ERP Transformation."
-        : project.slug === "vanbags-maintenance"
-        ? "Interactive maintenance-operations simulation for the VanBags Maintenance System. Manage work orders, technicians, parts, preventive plans, and tire logistics."
-        : project.slug === "fleet-intelligence"
-        ? "Interactive fleet analytics simulation for the Fleet Intelligence Platform. Monitor vehicles, analyze fuel efficiency, track maintenance, and evaluate driver performance."
-        : "Interactive architecture exploration of the modular Next.js portfolio platform. Inspect presentation, content, data, project framework, demo, and platform layers.",
+    title: project.title + " — Interactive " + kind + " Simulation",
+    description: project.description,
   };
 }
 
 function getProject(slug: string): Project {
-  const project = projects.find((project) => project.slug === slug);
-  if (!project || !project.demo?.enabled) {
+  const project = projects.find((p) => p.slug === slug);
+  if (!project) {
     notFound();
   }
   return project;
@@ -69,59 +59,44 @@ export default async function DemoPage({
 }) {
   const { slug } = await params;
   const project = getProject(slug);
-  const kind =
-    project.slug === "vanbags-erp"
-      ? "ERP"
-      : project.slug === "vanbags-maintenance"
-      ? "Maintenance"
-      : project.slug === "fleet-intelligence"
-      ? "Dashboard"
-      : "Architecture Explorer";
 
   return (
     <section className="py-16 md:py-24">
       <Container>
-        <nav aria-label="Demo navigation" className="mb-6">
-          <ButtonLink
-            href={`/projects/${project.slug}#demo`}
-            variant="ghost"
-            size="sm"
-          >
-            ← Back to case study
-          </ButtonLink>
-        </nav>
+        <div className="rounded-lg border border-border bg-popover">
+          <div className="flex items-center justify-between border-b border-border px-5 pt-4 pb-3">
+            <h2 className="text-lg font-semibold text-foreground">
+              Interactive workspace - {project.title} Simulation
+            </h2>
+            <ButtonLink
+              href={"/projects/" + project.slug}
+              variant="ghost"
+              size="sm"
+            >
+              {"Back to case study"}
+            </ButtonLink>
+          </div>
 
-        <header className="mb-8">
-          <p className="text-xs font-semibold uppercase tracking-wider text-accent">
-            {project.category}
-          </p>
-          <h1 className="mt-2 text-3xl font-extrabold text-foreground sm:text-4xl">
-            {project.title} — Interactive {kind} Simulation
-          </h1>
-          <p className="mt-4 max-w-3xl text-lg text-muted-foreground">
-            {project.slug === "vanbags-erp"
-              ? "An interactive ERP consulting simulation. Navigate the business process workflow or explore the underlying ERP configuration."
-              : project.slug === "vanbags-maintenance"
-              ? "An interactive maintenance-operations simulation. Execute corrective and preventive workflows, assign technicians, reserve and issue parts, and manage tire installation and rotation."
-              : project.slug === "fleet-intelligence"
-              ? "An interactive fleet analytics simulation for the Fleet Intelligence Platform. Monitor vehicles, analyze fuel efficiency, track maintenance, and evaluate driver performance."
-              : "An interactive architecture exploration of the modular Next.js portfolio platform. Inspect presentation, content, data, project framework, demo, and platform layers."}
-            <span className="block mt-1">
-              All data is synthetic and illustrative. This is a portfolio
-              simulation, not a live production system.
-            </span>
-          </p>
-        </header>
+          {slug === "vanbags-erp" && (
+            <div>
+              <ERPWorkflowDemo />
+            </div>
+          )}
 
-        {project.slug === "vanbags-erp" ? (
-          <ERPWorkflowDemo />
-        ) : project.slug === "vanbags-maintenance" ? (
-          <MaintenanceDemo />
-        ) : project.slug === "fleet-intelligence" ? (
-          <FleetIntelligenceDemo />
-        ) : (
-          <ArchitectureExplorer />
-        )}
+          {slug === "vanbags-maintenance" && <MaintenanceDemoContainer />}
+
+          {slug === "fleet-intelligence" && (
+            <div>
+              <FleetIntelligenceDemo />
+            </div>
+          )}
+
+          {slug === "personal-portfolio-platform" && (
+            <div>
+              <ArchitectureExplorer />
+            </div>
+          )}
+        </div>
       </Container>
     </section>
   );

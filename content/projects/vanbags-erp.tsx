@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 
+import { CapabilitiesDemonstrated } from "@/components/projects/CapabilitiesDemonstrated";
 import { ProcessFlow, type FlowStep } from "@/components/projects/ProcessFlow";
 import { UATTable, type UatScenario } from "@/components/projects/UATTable";
 import { ConfigurationPanel } from "@/components/projects/ConfigurationPanel";
@@ -18,6 +19,7 @@ export function vanbagsErpNav(): NavItem[] {
     { id: "solution-architecture", label: "Architecture" },
     { id: "implementation-methodology", label: "Implementation" },
     { id: "demo", label: "Demo" },
+    { id: "capabilities", label: "Capabilities Demonstrated" },
     { id: "technical-evidence", label: "Evidence" },
   ];
 }
@@ -37,6 +39,7 @@ export function vanbagsErpSections(project: Project): ProjectSectionDef[] {
     { id: "implementation-methodology", title: "Implementation Methodology", body: ImplementationMethodology() },
     { id: "testing-uat", title: "Testing & UAT", body: TestingUAT() },
     { id: "demo", title: "Interactive Demo Preview", body: DemoPreviewSection(project) },
+    { id: "capabilities", title: "Capabilities Demonstrated", body: CapabilitiesDemonstrated(project) },
     { id: "technical-evidence", title: "Technical Evidence", body: TechnicalEvidence(project) },
   ];
 }

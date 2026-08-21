@@ -1,9 +1,21 @@
+
+      <p className="mt-6 text-xs text-muted-foreground">
+        A Guided Tour mode is also available at the same demo URL by appending
+        ?mode=guided. The tour walks through 13 steps — register equipment, configure
+        templates, build a maintenance plan, install tires, simulate fleet operation,
+        respond to alerts, perform tire inspection, reach PM trigger, generate a
+        preventive work order, execute activities and parts, send to backlog on a
+        part shortage, create a follow-up work order, and trace the tire lifecycle.
+        Each step uses the same synthetic data and enforces the same business rules
+        as the interactive workspace.
+      </p>
 import type { ReactNode } from "react";
 
 import { ConfigurationPanel } from "@/components/projects/ConfigurationPanel";
 import { DemoPreview } from "@/components/projects/DemoPreview";
 import { ProcessFlow, type FlowStep } from "@/components/projects/ProcessFlow";
 import { RepositoryNote } from "@/components/projects/RepositoryNote";
+import { CapabilitiesDemonstrated } from "@/components/projects/CapabilitiesDemonstrated";
 import { UATTable, type UatScenario } from "@/components/projects/UATTable";
 import {
   DomainModel,
@@ -39,6 +51,7 @@ export function vanbagsMaintenanceNav(): NavItem[] {
     },
     { id: "tires", label: "Tire Management" },
     { id: "architecture", label: "Architecture" },
+    { id: "capabilities", label: "Capabilities Demonstrated" },
     { id: "demo-evidence", label: "Demo & Evidence" },
   ];
 }
@@ -358,7 +371,20 @@ function Overview(project: Project): ReactNode {
         <li>Fleet Asset and Equipment Management</li>
         <li>Tire Lifecycle and Position Management</li>
         <li>Business Workflow and Traceability Design</li>
+        <li>Guided Tour workflow demonstration (13-step guided walkthrough)</li>
       </ul>
+
+      <p className="text-sm text-muted-foreground mt-4">
+        The system is architected around three integrated but clearly separated
+        modules: Maintenance / Work Orders, Preventive Maintenance, and Tire
+        Management. These share a common vehicle and odometer model so that
+        one operational event updates multiple controls. A PM plan triggers
+        work-order generation; a parts shortage sends an activity to the
+        backlog with a follow-up work order. The guided tour at
+        /projects/vanbags-maintenance/demo walks through these integrations step
+        by step with synthetic data.
+      </p>
+
 
       <p className="text-sm italic text-muted-foreground">{sectionNote}</p>
     </>
@@ -909,6 +935,23 @@ function DemoPreviewSection(project: Project): ReactNode {
               Synthetic data only. No data is collected or persisted.
             </span>
           </div>
+
+          <div className="mt-4 pt-4 border-t border-border">
+            <p className="text-sm text-muted-foreground mb-3">
+              Prefer a guided walkthrough? Launch the Guided Tour mode,
+              which walks through 13 steps covering equipment registration,
+              maintenance templates, PM scheduling, tire lifecycle, work
+              order generation, activity execution, parts logistics, backlog
+              management, and tire lifecycle tracing with synthetic data.
+            </p>
+            <ButtonLink
+              href="/projects/vanbags-maintenance/demo?mode=guided"
+              variant="secondary"
+              size="md"
+            >
+              Launch Guided Tour
+            </ButtonLink>
+          </div>
         </div>
     </>
   );
@@ -943,6 +986,17 @@ function FutureM6B(): ReactNode {
         (see the Maintenance demo above): install tire, remove tire, rotate tire,
         send to repair, return to warehouse, and scrap tire — each enforcing the
         asset and position rules described in the business rules.
+      </p>
+
+      <p className="mt-6 text-xs text-muted-foreground">
+        A Guided Tour mode is also available at the same demo URL by appending
+        ?mode=guided. The tour walks through 13 steps — register equipment,
+        configure templates, build a maintenance plan, install tires, simulate
+        fleet operation, respond to alerts, perform tire inspection, reach PM
+        trigger, generate a preventive work order, execute activities and parts,
+        send to backlog on a part shortage, create a follow-up work order, and
+        trace the tire lifecycle. Each step uses the same synthetic data and
+        enforces the same business rules as the interactive workspace.
       </p>
     </>
   );
@@ -1030,6 +1084,7 @@ export function vanbagsMaintenanceSections(
         </>
       ),
     },
+    { id: "capabilities", title: "Capabilities Demonstrated", body: CapabilitiesDemonstrated(project) },
     {
       id: "demo-evidence",
       title: "Demo & Evidence",

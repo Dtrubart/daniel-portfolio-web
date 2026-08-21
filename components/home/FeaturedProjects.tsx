@@ -17,7 +17,7 @@ export function FeaturedProjects() {
           align="center"
         />
 
-        <ul className="mx-auto mt-12 grid max-w-7xl gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <ul className="mx-auto mt-12 grid max-w-7xl gap-6 sm:grid-cols-2 lg:grid-cols-2">
           {featured.map((project) => (
             <ProjectCard key={project.slug} project={project} />
           ))}

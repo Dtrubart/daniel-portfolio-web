@@ -658,8 +658,8 @@ export const professionalFacts: ProfessionalFacts = {
     },
     {
       id: "fleet-intelligence-driver-performance",
-      title: "Fleet Intelligence & Driver Performance",
-      organization: "Sol del Pacífico / Portfolio",
+      title: "Fleet Intelligence Platform",
+      organization: "Portfolio Case Study",
       category: "Analytics",
       workType: "reconstruction",
       description: "Analytics platform integrating ERP, telemetry, maintenance and fuel data with KPI design, driver ranking and team scoring.",

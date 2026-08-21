@@ -1,6 +1,10 @@
 import type { HTMLAttributes } from "react";
 
 import type { Project } from "@/data/projects";
+import {
+  getSolutionsForProject,
+  solutionAreaConfig,
+} from "@/data/solutions";
 import { cn } from "@/lib/utils";
 
 interface ProjectCardProps extends HTMLAttributes<HTMLLIElement> {
@@ -16,6 +20,8 @@ export function ProjectCard({
   const isLive = status === "active";
   const href = "/projects/" + project.slug;
   const caseStudyHref = `${href}#${project.caseStudyAnchor ?? "casestudy"}`;
+
+  const solutionLinks = getSolutionsForProject(project.slug);
 
   return (
     <li
@@ -48,6 +54,29 @@ export function ProjectCard({
           </li>
         ))}
       </ul>
+
+      {solutionLinks.length > 0 && (
+        <div className="mt-3 flex flex-wrap gap-1.5">
+          {solutionLinks.map((link) => (
+            <a
+              key={link.solutionId}
+              href={"/solutions#solution-" + link.solutionId}
+              className={
+                "inline-flex items-center rounded-md border border-border bg-secondary/50 px-2.5 py-1 text-xs font-medium text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground focus-visible:underline" +
+                (link.relationship === "primary" ? " border-accent/30" : "")
+              }
+              aria-label={
+                solutionAreaConfig[link.solutionId].title +
+                " (" +
+                link.relationship +
+                ")"
+              }
+            >
+              {solutionAreaConfig[link.solutionId].title}
+            </a>
+          ))}
+        </div>
+      )}
 
       <div className="mt-5 flex items-center justify-between gap-3 text-sm font-medium">
         <a

@@ -45,7 +45,7 @@ export function SelectedExperience() {
         </div>
 
         <div className="mt-12 flex justify-center">
-          <ButtonLink href="/experience" variant="ghost">
+          <ButtonLink href="/about#experience" variant="ghost">
             View full experience
           </ButtonLink>
         </div>

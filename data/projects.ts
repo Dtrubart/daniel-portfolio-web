@@ -107,7 +107,7 @@ export const projects: Project[] = [
     description:
       "A modular professional portfolio platform integrating career information, interactive business case studies, functional simulations, and technical evidence within a scalable Next.js architecture.",
     technologies: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Git", "GitHub", "Vercel"],
-    featured: false,
+    featured: true,
     status: "active",
     objective:
       "Design and build a modular professional portfolio platform that integrates career information, interactive business case studies, functional simulations, and technical evidence within a scalable Next.js architecture.",

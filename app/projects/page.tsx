@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 
 import { ProjectCard } from "@/components/projects/ProjectCard";
+import { SolutionFilter } from "@/components/solutions/SolutionFilter";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { projects } from "@/data/projects";
@@ -25,7 +26,9 @@ export default function ProjectsPage() {
           align="center"
         />
 
-        <div className="mt-16">
+        <div className="mt-12">
+          <SolutionFilter projects={projects} />
+
           <h2 className="text-2xl font-semibold text-foreground">
             Featured work
           </h2>

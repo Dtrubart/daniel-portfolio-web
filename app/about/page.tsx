@@ -29,8 +29,8 @@ export default function AboutPage() {
       </div>
 
       <CareerJourney />
-      <CapabilityExplorer />
       <ExperienceList />
+      <CapabilityExplorer />
       <SelectedWork />
       <SelectedImpact />
       <ProfessionalPrinciples />

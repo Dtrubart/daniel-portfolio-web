@@ -14,7 +14,7 @@ export function ExperienceList() {
   return (
     <section
       id="experience"
-      className="border-t border-border py-16 md:py-24"
+      className="border-t border-border py-16 md:py-24 scroll-mt-20"
     >
       <div className="mx-auto max-w-3xl px-6 md:px-0">
         <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">

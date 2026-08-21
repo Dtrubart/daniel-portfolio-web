@@ -30,7 +30,8 @@ export const architectureLayers: ArchitectureLayer[] = [
       "app/projects/page.tsx — Project catalogue",
       "app/projects/[slug]/page.tsx — Dynamic project pages",
       "app/resume/page.tsx — Resume foundation",
-      "app/contact/page.tsx — Contact placeholder",
+      "app/solutions/page.tsx — Solutions page (M10A, route without navbar entry)",
+      "app/contact/page.tsx — Contact page (LinkedIn/GitHub channels, QR codes)",
       "components/layout/Navbar.tsx — Navigation (Client Component, mobile toggle)",
       "components/layout/Footer.tsx — Footer navigation",
       "components/ui/Container.tsx — Responsive max-width wrapper",
@@ -46,6 +47,7 @@ export const architectureLayers: ArchitectureLayer[] = [
       "Static-first: pages are pre-rendered at build time",
       "Client Components only where interaction is required (Navbar mobile toggle, demos)",
       "Shared UI primitives avoid per-project styling duplication",
+      "Navigation is modular: active routes in lib/site.ts nav; optional routes in optionalNav (e.g., Experience)",
     ],
     evidence: [
       "app/layout.tsx — root layout with skip-link and semantic structure",
@@ -228,7 +230,7 @@ export const dataFlows: DataFlow[] = [
       },
       {
         label: "Presentation",
-        detail: "About / Resume / Experience / Contact",
+        detail: "About / Resume / Experience / Solutions / Contact; Solutions maps to projects via projectSolutionLinks (M10B)",
       },
     ],
   },
@@ -299,8 +301,10 @@ export const repositoryTree: RepositoryNode[] = [
     children: [
       { path: "app/about", name: "about/ — professional profile pages", type: "folder", responsibility: "About page with career journey, capabilities, experience" },
       { path: "app/projects", name: "projects/ — project catalogue and dynamic routes", type: "folder", responsibility: "[slug]/page.tsx (case study), [slug]/demo/page.tsx (interactive demos)" },
-      { path: "app/resume", name: "resume/ — resume foundation (planned full PDF M8C)", type: "folder", responsibility: "Resume preview" },
-      { path: "app/contact", name: "contact/ — contact placeholder", type: "folder", responsibility: "Contact call-to-action" },
+      { path: "app/experience", name: "experience/ — optional module (hidden from nav)", type: "folder", responsibility: "Standalone experience route preserved for future configurations" },
+      { path: "app/solutions", name: "solutions/ — solution areas and problem explorer", type: "folder", responsibility: "Business problems and capability-based solutions presentation" },
+      { path: "app/resume", name: "resume/ — resume page", type: "folder", responsibility: "Resume derived from canonical professional facts" },
+      { path: "app/contact", name: "contact/ — contact page", type: "folder", responsibility: "LinkedIn/GitHub channels, QR codes, professional interests" },
     ],
   },
   {
@@ -315,6 +319,7 @@ export const repositoryTree: RepositoryNode[] = [
       { path: "components/projects", name: "projects/ — project framework components", type: "folder", responsibility: "ProjectHeader, ProjectNavigation, DemoPreview, etc." },
       { path: "components/ui", name: "ui/ — Button, ButtonLink, Container", type: "folder", responsibility: "UI primitives and layout helpers" },
       { path: "components/home", name: "home/ — homepage sections", type: "folder", responsibility: "Hero, Featured Projects, Capabilities, etc." },
+      { path: "components/solutions", name: "solutions/ — Solution components", type: "folder", responsibility: "ProblemExplorer, SolutionFoundation, SolutionsCTA, SolutionCard, SolutionApproach" },
     ],
   },
   {
@@ -336,6 +341,7 @@ export const repositoryTree: RepositoryNode[] = [
       { path: "data/professional-facts.ts", name: "professional-facts.ts — canonical professional facts", type: "file", responsibility: "Source of truth for employment, education, certifications" },
       { path: "data/professional-profile.ts", name: "professional-profile.ts — presentation model", type: "file", responsibility: "Narrative composition for About page" },
       { path: "data/projects.ts", name: "projects.ts — project catalogue", type: "file", responsibility: "6 projects with status, categories, feature flags" },
+      { path: "data/solutions.ts", name: "solutions.ts — solution areas data model", type: "file", responsibility: "Typed solution data: 4 areas, challenges, approaches, related projects" },
       { path: "data/capabilities.ts", name: "capabilities.ts — capability domains", type: "file", responsibility: "Data & Analytics, ERP, Automation, etc." },
     ],
   },
@@ -355,7 +361,7 @@ export const repositoryTree: RepositoryNode[] = [
     responsibility: "Shared routing/content utilities and logic",
     children: [
       { path: "lib/projectContent.tsx", name: "projectContent.tsx — project content router", type: "file", responsibility: "Dispatches to dedicated case-study modules" },
-      { path: "lib/site.ts", name: "site.ts — site configuration", type: "file", responsibility: "Site name, description, navigation" },
+      { path: "lib/site.ts", name: "site.ts — site configuration", type: "file", responsibility: "Site name, description, navigation (nav + optionalNav)" },
       { path: "lib/utils.ts", name: "utils.ts — cn() class helper", type: "file", responsibility: "Conditional class name merging" },
     ],
   },
@@ -475,6 +481,32 @@ export const architectureDecisions: ArchitectureDecision[] = [
       "Not implemented in M9B; EN-only for now.",
     futureReconsideration:
       "Implement EN/ES with locale routing, language switcher, hreflang, and localized metadata.",
+  },
+  {
+    id: "solutions-section",
+    title: "Solutions section (M10A — implemented)",
+    status: "implemented",
+    problem:
+      "The portfolio needed a way to show what kinds of business and operational problems Daniel can help solve, without appearing like an established consulting firm.",
+    decision:
+      "A new /solutions route presents four capability-based solution areas connected to an Industrial Engineering foundation, using a typed data model (data/solutions.ts) and reusable interactive components. The route is not added to the primary navbar until manually reviewed.",
+    tradeOff:
+      "M10A cross-referencing is unidirectional (Solutions to Projects).",
+    futureReconsideration:
+      "After review, Solutions may be promoted to the primary navigation.",
+  },
+  {
+    id: "bidirectional-integration",
+    title: "Solutions ↔ Projects integration (M10B — implemented)",
+    status: "implemented",
+    problem:
+      "Solutions and Projects need to cross-reference each other bidirectionally without maintaining duplicate relationship mappings.",
+    decision:
+      "A single canonical projectSolutionLinks mapping in data/solutions.ts defines Project → Solution relationships with primary/secondary distinction. Both directions are derived programmatically: getProjectsForSolution(solutionId) and getSolutionsForProject(slug). Solutions page shows Related Evidence from the derived mapping; project detail pages show 'Capabilities Demonstrated' using getSolutionsForProject. A SolutionFilter on /projects enables filtering by solution area.",
+    tradeOff:
+      "The mapping is maintained as a single static file rather than a database, requiring rebuild for relationship changes.",
+    futureReconsideration:
+      "If relationship management needs grow, a headless configuration may be evaluated.",
   },
 ];
 
@@ -598,6 +630,8 @@ export const roadmapCapabilities: RoadmapCapability[] = [
   { id: "resume-integration", label: "Resume PDF integration", status: "planned", milestone: "M8C" },
   { id: "contact-redesign", label: "Contact consolidation", status: "planned", milestone: "M8D" },
   { id: "internationalization", label: "English / Spanish (M9C)", status: "planned", milestone: "M9C" },
+  { id: "solutions-section", label: "Solutions section", status: "implemented", milestone: "M10A" },
+  { id: "bidirectional-integration", label: "Solutions ↔ Projects integration", status: "implemented", milestone: "M10B" },
   { id: "custom-domain", label: "Custom domain", status: "planned", milestone: "M15" },
   { id: "seo-refinement", label: "SEO refinement (M15)", status: "planned", milestone: "M15" },
   { id: "remaining-case-studies", label: "Remaining project case studies", status: "planned", milestone: "M10A, M10B" },

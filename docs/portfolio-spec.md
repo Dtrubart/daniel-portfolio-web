@@ -1,4 +1,6 @@
-# Daniel Trujillo — Portfolio Specification
+
+
+## 17# Daniel Trujillo — Portfolio Specification
 
 ## 1. Purpose
 
@@ -47,6 +49,7 @@ technology, automation, and decision-making."
 
 ### Future
 
+- Solutions (optional route — `/solutions`, not in primary navigation pending review)
 - Writing
 
 ## 4. Homepage
@@ -268,10 +271,11 @@ Avoid unnecessary functional duplication between projects.
 - **Milestone 8A** — Professional Profile Foundation (`/about` transformation: Professional Profile, Career Journey, Capability Explorer, Experience, Selected Work, Impact, Education, Resume preview)
 - **Milestone 8B** — Interactive Professional Profile (interactive career journey timeline, capability network explorer, evidence chains)
 - **Milestone 8C** — Resume Integration (`/resume` page derived from `data/professional-facts.ts`; print-friendly layout; About → Resume CTA)
-- **Milestone 8D** — Contact redesign (interest areas, public location, pending verification contact details, data-safety compliant)
+- **Milestone 8D** — Contact form (production contact page with internal form, server-side email delivery via Resend, hidden destination email, LinkedIn/GitHub public channels, honeypot anti-spam, client-side validation, and responsive layout)
 - **Milestone 9A** — Personal Portfolio Platform Case Study (case study content, navigation, architecture documentation)
 - **Milestone 9B** — Personal Portfolio Platform Interactive Architecture Explorer (interactive layer visualization)
-- **Milestone 10A** — ERPNext Logistics Case Study
+- **Milestone 10A** — Solutions Foundation (`/solutions` route: four solution areas, Industrial Engineering foundation, interactive Problem Explorer, project cross-references; not in primary navbar pending review)
+- **Milestone 10B** — ERPNext Logistics Case Study
 - **Milestone 10B** — ERPNext Logistics Functional Demo (Items, Warehouses, Material Receipt, Material Issue, Material Transfer, Stock Balance, Stock Ledger)
 - **Milestone 11** — Shared Demo Components
 - **Milestone 12** — Cross-Project Visual and Responsive Polish
@@ -315,6 +319,41 @@ Implemented scope for the route `/projects/vanbags-maintenance/demo`:
 - A dashboard summarizes open requests, open work orders, PM due, part shortages, and vehicles under maintenance; a Reset control returns the workspace to its initial synthetic state.
 - Business rules prevent invalid transitions: completing a Work Order before all activities are complete and all required parts are issued; installing a tire onto an occupied position; rotating a tire to its current position; assigning two tires to one position; issuing unreserved stock.
 - Static-first, React state only. No backend, database, authentication, or external services. Data is entirely synthetic and illustrative.
+
+### Guided Tour Mode (V2-A)
+
+A Guided Tour mode provides a 13-step walkthrough of the Maintenance System
+key workflows at /projects/vanbags-maintenance/demo?mode=guided. The tour covers:
+
+1. Register Equipment - vehicle TRK-DEMO-017 (HT-500, 3 axles, 10 tire positions)
+2. Configure Maintenance Templates - M1, M2, M3 service definitions
+3. Build Maintenance Plan - PM schedule at 5k, 20k, 35k, 50k, 65k, 80k km
+4. Configure Tire Layout - initial tire installation on 10 positions
+5. Simulate Fleet Operation - advance odometer to 4,500 km
+6. Respond to Alerts - maintenance and tire inspections
+7. Perform Tire Inspection - at 4,500 km (Normal and Abnormal findings)
+8. Reach PM Trigger - M1 due at 5,000 km
+9. Generate Preventive Work Order - WO-PM-DEMO-001 from PM plan
+10. Execute Activities & Parts - technician assignment, part reservation/issue
+11. Send Activity to Backlog - brake component shortage (BACKLOG-DEMO-001)
+12. Create Follow-Up Work Order - WO-FU-DEMO-002 with part shortage
+13. Tire Lifecycle - trace tire through Warehouse to Installed to Rotation to Retread
+
+The guided tour uses the same synthetic data and enforces the same business
+rules as the interactive workspace. A MaintenanceDemoContainer client component
+manages mode switching via a tab selector, with URL parameter ?mode=guided
+for deep-linking.
+
+### V2 Roadmap
+
+| Milestone | Focus | Status |
+| --- | --- | --- |
+| V2-A | Guided Experience & Unified Domain Architecture | Implemented |
+| V2-B | Unified Simulation Engine | Coming Soon |
+| V2-C | Guided Maintenance Journey | Coming Soon |
+| V2-D | Free Exploration Mode Expansion | Coming Soon |
+| V2-E | Reporting & Final Integration | Coming Soon |
+
 
 ## 17. Professional Profile Architecture (Milestone 8A)
 
@@ -474,3 +513,217 @@ Interactive Demos, and Platform & Delivery — and inspect repository structure,
 data flows, architecture decisions, project examples, and the development
 pipeline. M9C Internationalization remains planned for a future milestone.
 
+
+## 19. Solutions Section (Milestone 10A)
+
+### Purpose
+
+Solutions extends the portfolio from a career-only presentation toward a professional platform capable of supporting both career opportunities and selected project-based collaboration. It answers: "What kinds of business and operational problems can Daniel help solve using his professional capabilities?"
+
+### Positioning
+
+PROFESSIONAL-FIRST. CONSULTING-CAPABLE-SECOND. Solutions reinforces Daniel's professional positioning rather than competing with it. No titles such as "Freelancer", "Consultant", "Founder", "CEO", "Agency". No "Hire me", "Book a call", "Pricing", "Packages", "Hourly rates", "Free consultation".
+
+### Architecture
+
+**Platform structure:**
+
+```
+Professional Identity
+│
+├── About
+├── Resume
+│
+├── Evidence
+│   └── Projects
+│
+├── Problem / Capability Translation
+│   └── Solutions
+│
+└── Connection
+    └── Contact
+```
+
+### Four Solution Areas
+
+1. **Operational Intelligence** — Data, KPIs, analytics & decision support.
+   Related evidence: Fleet Intelligence.
+
+2. **Business Systems & ERP** — Processes, requirements, workflows & system design.
+   Related evidence: VanBags ERP Transformation, VanBags Maintenance System.
+
+3. **Workflow Automation** — Manual work, structured workflows, automation & traceability.
+   Related evidence: Fleet Intelligence.
+
+4. **Operational Excellence** — Process improvement, standardization & continuous improvement.
+   Related evidence: VanBags ERP Transformation, Fleet Intelligence.
+
+### Interactive Problem Explorer
+
+Visitors select from four problem statements. Selecting a problem reveals the corresponding Solution Area with challenges, approach steps, capabilities, tools, and related portfolio projects. All interactive controls are keyboard accessible with aria-expanded and focus states.
+
+### Industrial Engineering Foundation
+
+A CSS/SVG diagram shows the four Solution Areas converging on Industrial Engineering as the shared methodological foundation.
+
+### Contact Integration
+
+The Solutions page ends with a subtle CTA: "Have a related challenge?" linking to `/contact`. No email is exposed. No contact form is restored.
+
+### Navigation Decision
+
+The `/solutions` route is not added to the primary navbar after M10A. It is available directly via URL for manual review.
+
+### Future Consulting Evolution
+
+The Solutions architecture is intended to support future evolution (Professional Portfolio → Professional + Projects → Independent Consulting → Future Practice) but no UI for these stages is created in M10A.
+
+### Professional Positioning Check
+
+- PROFESSIONAL-FIRST POSITIONING PRESERVED
+- NO FREELANCER TITLE
+- NO PRICING/PACKAGES
+- NO UNSUPPORTED CONSULTING CLAIMS
+
+### Bidirectional Integration (M10B)
+
+A canonical projectSolutionLinks mapping in data/solutions.ts defines Project-to-Solution relationships with primary/secondary distinction. Both directions are derived programmatically:
+
+- getProjectsForSolution(solutionId) returns projects for a solution
+- getSolutionsForProject(slug) returns solution links for a project
+
+The /projects page includes a SolutionFilter for capability-based exploration. Project cards show subtle solution tags. Project case studies include a Capabilities Demonstrated section linking back to /solutions#anchor. Personal Portfolio Platform has no solution mapping (empty array).
+
+## 46. Contact Architecture (Milestone 8D)
+
+### Overview
+
+The `contact` page provides a production-quality contact experience
+featuring LinkedIn and GitHub as public channels with QR codes. Visitors
+can connect via these verified professional channels. Server-side email
+delivery infrastructure (POST /api/contact, Resend integration, validation,
+anti-spam) is fully implemented but NOT rendered to visitors in the current
+release. The implementation is preserved as dormant code for future activation.
+No `mailto:` is used.
+
+### Public Contact Experience
+
+The public Contact page renders ONLY:
+
+- Intro / "Let's connect" heading with professional interests
+- LinkedIn card with QR code + "Connect on LinkedIn" link
+- GitHub card with QR code + "Explore my GitHub" link
+- Verified public location (Burnaby, BC / Metro Vancouver, Canada)
+
+### Public Contact Channels
+
+LinkedIn: `https://www.linkedin.com/in/daniel-trujillo-barthe/`
+GitHub: `https://github.com/Dtrubart`
+
+### Architecture (Implemented, Current Release Hidden)
+
+Visitor
+   ->
+Contact Form (Client Component) [dormant, not rendered in current release]
+   ->
+POST /api/contact (Next.js App Router Route Handler)
+   ->
+Server-side validation + anti-spam checks
+   ->
+Resend email delivery
+   ->
+Private destination inbox
+
+### Privacy Principle
+
+The private destination email must never be displayed publicly.
+The Contact page currently exposes NO email address to visitors — only
+LinkedIn and GitHub are shown. Server-side email delivery infrastructure is
+implemented but dormant.
+
+Public contact configuration lives in `data/contact.ts` (LinkedIn, GitHub,
+location, professional interests only). Email credentials and destination
+address live in server-only environment variables.
+
+### Anti-Spam Approach
+
+Implemented (dormant until form is activated):
+
+- Honeypot field: A hidden `website` field; if populated, the submission is
+  silently rejected (returns generic success without sending).
+- Submission timing: A `startedAt` timestamp is tracked client-side;
+  submissions completed impossibly fast are silently rejected.
+- Input limits: Character limits enforced server-side and client-side
+  (name 2-100, email <=254, company <=120, subject 3-160, message 10-5000).
+- Reason validation: Only the approved ContactReason enum values are
+  accepted.
+
+No CAPTCHA is used in V1. CAPTCHA / Turnstile documented as a future
+escalation option if spam becomes a real problem.
+
+### Server-side Validation
+
+The API route (`app/api/contact/route.ts`) validates all incoming data:
+
+- Rejects missing required fields, invalid email, invalid reason, overly long
+  payloads, malformed JSON, and unexpected field types.
+- Returns `400` for validation errors, `200` for success, `500` for
+  provider failures, `429` for rate limiting (if implemented).
+- Never exposes internal provider errors, API keys, destination email, or
+  stack traces to the visitor.
+
+### Email Delivery
+
+Implemented (dormant until form is activated):
+
+- Provider: Resend (`npm install resend`)
+- From: CONTACT_FROM_EMAIL (configured sender identity)
+- Reply-To: Visitor's submitted email (enables direct reply)
+- Destination: CONTACT_TO_EMAIL (read from server env var only)
+- Both HTML and plain-text email bodies are generated.
+- User content is HTML-escaped before embedding in the email body.
+
+### Environment Variables
+
+Server-only (never prefixed with NEXT_PUBLIC_):
+
+- RESEND_API_KEY -- Resend API key
+- CONTACT_TO_EMAIL -- Private destination inbox
+- CONTACT_FROM_EMAIL -- Verified sender email/domain
+- CONTACT_FROM_NAME -- Sender display name (optional)
+
+See .env.example for the canonical list. Only required if/when email
+delivery is activated.
+## Project Inventory / Evidence Architecture
+
+### Overview
+
+The portfolio uses a canonical **Project Inventory** as the single source of truth for all professional work and portfolio evidence:
+
+- **Experience** (data/professional-facts.ts, data/professional-profile.ts) -- employment records
+- **Project Inventory** (data/project-inventory.ts) -- canonical project/work records
+- **Capabilities** (data/professional-facts.ts, data/professional-profile.ts) -- capability domains
+- **Portfolio Evidence** (content/projects/, data/projects.ts) -- public case study routes
+
+### Professional Work vs Portfolio Evidence
+
+**Professional Work** includes real employer, advisory, and academic initiatives. These are actual work performed during employment or professional engagements.
+
+**Portfolio Case Studies / Reconstructions** are independent demonstrations and reconstructions. They use synthetic data, generic organizations, and original code. They may be *inspired by* professional experience but are NOT the employer production systems.
+
+The website MUST NOT imply that a portfolio case study equals the production system deployed at an employer.
+
+### Classifications
+
+| Classification | Visitor badge | Status |
+|---|---|---|
+| professional-program | Professional Program | implemented |
+| professional-work | Professional Work | implemented / operational |
+| advisory-project | Advisory Project | proposal / business-case |
+| academic-project | Academic Project | implemented |
+| teaching-automation | Teaching Automation | implemented |
+| portfolio-case-study | Portfolio Case Study | portfolio-demo |
+| portfolio-reconstruction | Portfolio Reconstruction | reconstruction |
+| independent-project | Portfolio Case Study | portfolio-demo |
+### Data Architecture
+The Project Inventory (data/project-inventory.ts) is the canonical typed source for all selected work items. SelectedWork.tsx derives its professional work and portfolio evidence sections from this inventory. Professional facts (professional-facts.ts, professional-profile.ts) provide experience context and capability domains.

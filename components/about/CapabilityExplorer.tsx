@@ -69,92 +69,7 @@ export function CapabilityExplorer() {
       </div>
 
       <div className="mx-auto mt-12 max-w-5xl px-6 md:px-0">
-        {/* Capability Network Visualization */}
-        <div className="mb-12">
-          <h3 className="text-lg font-semibold text-foreground mb-6">
-            Capability Network
-          </h3>
-
-          <p className="mb-4 text-center text-xs text-muted-foreground">
-            All six capability domains interconnect through shared experience
-            and applied work. Select a domain to explore.
-          </p>
-
-          <div className="grid grid-cols-2 gap-4 sm:grid-cols-3">
-            {domains.map((domain, index) => {
-              const isSelected = selectedCapability === domain.id;
-              const dimmed = isDimmed(domain.id);
-
-              return (
-                <div key={domain.id} className="flex justify-center">
-                  <button
-                    type="button"
-                    onClick={() => setSelectedCapability(domain.id)}
-                    aria-pressed={isSelected}
-                    aria-label={`Explore ${domain.title} →`}
-                    className={cn(
-                      "relative flex flex-col items-center gap-2 rounded-lg border-2 bg-popover p-4 text-center text-sm font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
-                      isSelected
-                        ? "border-accent bg-accent/10 text-accent ring-1 ring-accent/30"
-                        : dimmed
-                        ? "border-border bg-popover/30 text-muted-foreground grayscale opacity-40"
-                        : "border-border text-foreground hover:border-border/60",
-                    )}
-                  >
-                    <span
-                      className={cn(
-                        "flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-sm font-bold",
-                        isSelected
-                          ? "bg-accent text-accent-foreground"
-                          : "bg-secondary text-muted-foreground",
-                      )}
-                      aria-hidden="true"
-                    >
-                      {index + 1}
-                    </span>
-                    <span className="leading-tight">
-                      {domain.title}
-                    </span>
-                    {!isSelected && (
-                      <span className="sr-only">Explore capability →</span>
-                    )}
-                  </button>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-
-        {/* Capability selector buttons */}
-        <div className="mb-8 flex flex-wrap gap-2">
-          {domains.map((domain) => (
-            <button
-              key={domain.id}
-              type="button"
-              onClick={() => setSelectedCapability(domain.id)}
-              aria-pressed={selectedCapability === domain.id}
-              className={cn(
-                "rounded-md border-2 px-4 py-2 text-sm font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
-                selectedCapability === domain.id
-                  ? "border-accent bg-accent/10 text-accent"
-                  : "border-border bg-popover text-muted-foreground hover:border-border/60 hover:text-foreground",
-              )}
-            >
-              {domain.title}
-            </button>
-          ))}
-
-          {selectedCapability && (
-            <button
-              type="button"
-              onClick={() => setSelectedCapability(null)}
-              className="rounded-md border border-border bg-secondary px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-            >
-              Clear selection
-            </button>
-          )}
-        </div>
-
+        {/* Capability cards - primary selection interface */}
         <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
           {domains.map((domain) => {
             const isSelected = selectedCapability === domain.id;
@@ -226,10 +141,32 @@ export function CapabilityExplorer() {
                     Explore capability →
                   </button>
                 )}
+                {isSelected && (
+                  <button
+                    type="button"
+                    onClick={() => setSelectedCapability(null)}
+                    className="mt-3 text-xs font-medium text-muted-foreground underline"
+                  >
+                    Show less ↑
+                  </button>
+                )}
               </div>
             );
           })}
         </div>
+
+        {/* Clear selection - only when a capability is selected */}
+        {selectedCapability && (
+          <div className="mt-8 flex justify-center">
+            <button
+              type="button"
+              onClick={() => setSelectedCapability(null)}
+              className="rounded-md border border-border bg-secondary px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+            >
+              Clear selection
+            </button>
+          </div>
+        )}
 
         {/* Detail panel */}
         {selectedDomain && (
@@ -282,7 +219,7 @@ export function CapabilityExplorer() {
                         </span>
                         {work.relatedProjectSlug && (
                           <a
-                            href={`/projects/${work.relatedProjectSlug}`}
+                            href={"/projects/" + work.relatedProjectSlug}
                             className="text-xs text-accent underline"
                           >
                             View case study →
@@ -303,7 +240,7 @@ export function CapabilityExplorer() {
                     {relatedProjects.map((slug) => (
                       <li key={slug}>
                         <a
-                          href={`/projects/${slug}`}
+                          href={"/projects/" + slug}
                           className="text-accent hover:underline"
                         >
                           /projects/{slug}
